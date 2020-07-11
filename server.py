@@ -40,6 +40,10 @@ def test():
 def login():
     """
     Authorizing user and setting it's data into a session
+    req.args: {
+        login: String,
+        pass: String
+    }
     :return:
     {
         error: 0,
