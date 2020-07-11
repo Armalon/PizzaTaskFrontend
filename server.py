@@ -36,3 +36,60 @@ def test():
     return resp
 
 
+@app.route('/login')
+def login():
+    """
+    Authorizing user and setting it's data into a session
+    :return:
+    {
+        error: 0,
+    }
+    """
+    pass
+
+@app.route('/logout')
+def logout():
+    """
+    Logging user out
+    :return:
+    {
+        error: 0,
+    }
+    """
+
+@app.route('/mychats')
+def login():
+    """
+    Show Chats where I can write
+    :return:
+    {
+        error: 0,
+        chats: [...Chat]
+    }
+    """
+    pass
+
+@app.route('/chat-messages')
+def login():
+    """
+    Show all Messages in a Chat
+    :return:
+    {
+        error: 0,
+        messages: [...Message]
+    }
+    """
+    pass
+
+
+@app.route('/chat-post-message')
+def login():
+    """
+    Putting Message in a Chat
+    :return:
+    {
+        error: 0,
+        message: Message
+    }
+    """
+    pass
