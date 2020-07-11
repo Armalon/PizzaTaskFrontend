@@ -1,18 +1,31 @@
-from flask import Flask, escape, request, url_for, render_template, make_response
+from flask import Flask, escape, request, url_for, render_template, make_response, g
+import sqlite3
 
 # https://flask.palletsprojects.com/en/1.1.x/quickstart/
 app = Flask(__name__)
 
+DATABASE = 'database/database.db'
+
+
+# getting DB instance
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(DATABASE)
+    return db
 
 @app.route('/')
-def hello():
-    name = request.args.get('name', 'World') # this is context local https://flask.palletsprojects.com/en/1.1.x/quickstart/#context-locals
+def home():
+    get_db()
+
+    name = request.args.get('name',
+                            'World')  # this is context local https://flask.palletsprojects.com/en/1.1.x/quickstart/#context-locals
     # request.method
     # request.form
     # request.args.get
     # request.cookies.get('username')
     username = request.cookies.get('username')
-    link_address = url_for('show_user_profile', username=username)
+    link_address = url_for('show_user_profile', username='test')
     static_link = url_for('static', filename='style.css')
     return f'Hello!, {escape(name)}. Here is the link to <a href="{link_address}">{username}</a> <br> and here is s just <a href="{static_link}">link</a>'
 
@@ -51,6 +64,7 @@ def login():
     """
     pass
 
+
 @app.route('/logout')
 def logout():
     """
@@ -61,8 +75,9 @@ def logout():
     }
     """
 
+
 @app.route('/mychats')
-def login():
+def mychats():
     """
     Show Chats where I can write
     :return:
@@ -73,8 +88,9 @@ def login():
     """
     pass
 
+
 @app.route('/chat-messages')
-def login():
+def chat_messages():
     """
     Show all Messages in a Chat
     :return:
@@ -87,7 +103,7 @@ def login():
 
 
 @app.route('/chat-post-message')
-def login():
+def chat_post_message():
     """
     Putting Message in a Chat
     :return:
@@ -97,3 +113,11 @@ def login():
     }
     """
     pass
+
+
+# on app closing
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
