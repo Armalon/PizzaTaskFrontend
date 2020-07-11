@@ -1,4 +1,5 @@
 from flask import Flask, escape, request, url_for, render_template, make_response, g
+# https://flask.palletsprojects.com/en/1.1.x/patterns/sqlite3/#sqlite3
 import sqlite3
 
 # https://flask.palletsprojects.com/en/1.1.x/quickstart/
@@ -12,11 +13,31 @@ def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
+
+    # def make_dicts(cursor, row):
+    #     return dict((cursor.description[idx][0], value)
+    #                 for idx, value in enumerate(row))
+    db.row_factory = sqlite3.Row
+
     return db
+
+
+def query_db(query, args=(), one=False):
+    cur = get_db().execute(query, args)
+    rv = cur.fetchall()
+    cur.close()
+    return (rv[0] if rv else None) if one else rv
+
+
+# Init DB on start
+with app.app_context():
+    # db = get_db()
+    # cursor = db.cursor()
+
 
 @app.route('/')
 def home():
-    get_db()
+    # todo: Show login and passwords on a main web page for easy access
 
     name = request.args.get('name',
                             'World')  # this is context local https://flask.palletsprojects.com/en/1.1.x/quickstart/#context-locals
