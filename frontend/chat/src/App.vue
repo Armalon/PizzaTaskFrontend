@@ -2,6 +2,8 @@
     <div id="app">
         <h1>This is gonna be our chat</h1>
 
+        <button v-if="!iAmAuthorized">Authorise me</button>
+        <button v-if="iAmAuthorized">Logging out</button>
         <LiveChat />
     </div>
 </template>
@@ -11,9 +13,14 @@
 
     export default {
         name: 'App',
+        methods: {
+            authorizeMe() {
+
+            },
+        },
         components: {
             LiveChat
-        }
+        },
     }
 </script>
 
