@@ -2,10 +2,12 @@ from flask import Flask, escape, request, url_for, render_template, make_respons
 # https://flask.palletsprojects.com/en/1.1.x/patterns/sqlite3/#sqlite3
 import sqlite3
 
+import os
+
 # https://flask.palletsprojects.com/en/1.1.x/quickstart/
 app = Flask(__name__)
 
-DATABASE = 'database/database.db'
+DATABASE = 'database/chat_database.db'
 
 
 # getting DB instance
@@ -29,11 +31,19 @@ def query_db(query, args=(), one=False):
     return (rv[0] if rv else None) if one else rv
 
 
-# Init DB on start
-with app.app_context():
-    pass
-    # db = get_db()
-    # cursor = db.cursor()
+# Init DB
+# Usage:
+# >>> from server import init_db
+# >>> init_db()
+def init_db():
+    if os.path.exists(DATABASE):
+        os.remove(DATABASE)
+
+    with app.app_context():
+        db = get_db()
+        with app.open_resource('chat_schema.sql', mode='r') as f:
+            db.cursor().executescript(f.read())
+        db.commit()
 
 
 @app.route('/')
@@ -108,7 +118,10 @@ def mychats():
         chats: [...Chat]
     }
     """
-    pass
+    # for chat in query_db('select * from chats'):
+    #     print(chat['name'])
+    # return 'Done'
+    #     # print user['username'], 'has the id', user['user_id']
 
 
 @app.route('/chat-messages')
