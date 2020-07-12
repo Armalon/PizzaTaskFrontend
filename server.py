@@ -1,6 +1,7 @@
 from flask import Flask, escape, request, url_for, render_template, make_response, g, session
 # https://flask.palletsprojects.com/en/1.1.x/patterns/sqlite3/#sqlite3
 import sqlite3
+import time
 from flask_cors import CORS
 
 import os
@@ -20,6 +21,8 @@ def get_db():
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
 
+    # db.set_trace_callback(print)
+
     def make_dicts(cursor, row):
         return dict((cursor.description[idx][0], value)
                     for idx, value in enumerate(row))
@@ -34,6 +37,12 @@ def query_db(query, args=(), one=False):
     cur.close()
     return (rv[0] if rv else None) if one else rv
 
+
+def insert_db(query, args=()):
+    cur = get_db().cursor()
+    cur.execute(query, args)
+    get_db().commit()
+    return cur.lastrowid
 
 # Init DB
 # Usage:
@@ -188,13 +197,37 @@ def chat_messages():
 def chat_post_message():
     """
     Putting Message in a Chat
+    req.args: {
+        chat_id,
+        text
+    }
     :return:
     {
         error: 0,
         message: Message
     }
     """
-    pass
+    result = {
+        'error': 1,
+        'message': None
+    }
+
+    if 'user_id' in session \
+            and request.args.get('chat_id') != None \
+            and request.args.get('text') != None:
+        message = {
+            'text': request.args.get('text'),
+            'user_id': session['user_id'],
+            'datetime': round(time.time()),
+            'chat_id': request.args.get('chat_id')
+        }
+        inserted_id = insert_db(
+            'INSERT INTO chat_messages (text, user_id, datetime, chat_id) VALUES (:text, :user_id, :datetime, :chat_id)',
+            message
+        )
+        message['id'] = inserted_id
+        result['message'] = message
+    return result
 
 
 # on app closing
