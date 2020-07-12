@@ -31,6 +31,7 @@ def query_db(query, args=(), one=False):
 
 # Init DB on start
 with app.app_context():
+    pass
     # db = get_db()
     # cursor = db.cursor()
 
