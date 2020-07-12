@@ -1,11 +1,13 @@
 from flask import Flask, escape, request, url_for, render_template, make_response, g, session
 # https://flask.palletsprojects.com/en/1.1.x/patterns/sqlite3/#sqlite3
 import sqlite3
+from flask_cors import CORS
 
 import os
 
 # https://flask.palletsprojects.com/en/1.1.x/quickstart/
 app = Flask(__name__)
+CORS(app)
 
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
