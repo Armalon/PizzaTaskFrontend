@@ -2,8 +2,8 @@
     <div id="app">
         <h1>This is gonna be our chat</h1>
 
-        <button v-if="!iAmAuthorized">Authorise me</button>
-        <button v-if="iAmAuthorized">Logging out</button>
+        <button v-if="!iAmAuthorized" @click="authorizeMe">Authorise me</button>
+        <button v-if="iAmAuthorized" @click="loggingMeOut">Logging out</button>
         <LiveChat />
     </div>
 </template>
@@ -15,7 +15,23 @@
         name: 'App',
         methods: {
             authorizeMe() {
+                this.axios.get('http://localhost:5000/login').then((response) => {
+                    if (response.data
+                        && !response.data.error
+                        && response.data.user) {
 
+                        this.$store.dispatch('setIAmAuthorized', response.data.user);
+                    }
+                })
+            },
+            loggingMeOut() {
+                this.axios.get('http://localhost:5000/logout').then((response) => {
+                    if (response.data
+                        && !response.data.error) {
+
+                        this.$store.dispatch('setIAmAuthorized', null);
+                    }
+                })
             },
         },
         components: {

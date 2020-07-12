@@ -4,13 +4,19 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = {
-    iAmAuthorized: false
+    iAmAuthorized: null // null or user data
 }
 
 const mutations = {
+    'SET_I_AM_AUTHORIZED' (state, user) {
+        state.iAmAuthorized = user;
+    },
 }
 
 const actions = {
+    setIAmAuthorized: ({ commit }, user) => {
+        commit('SET_I_AM_AUTHORIZED', user);
+    },
 }
 
 const getters = {

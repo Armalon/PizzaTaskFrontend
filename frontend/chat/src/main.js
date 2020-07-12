@@ -3,6 +3,9 @@ import App from './App.vue'
 
 import { store } from './store/store.js';
 
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
 Vue.config.productionTip = false
 
 Vue.mixin({
@@ -12,6 +15,8 @@ Vue.mixin({
         }
     },
 })
+
+Vue.use(VueAxios, axios)
 
 new Vue({
     store,
