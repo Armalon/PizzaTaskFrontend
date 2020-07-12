@@ -9,7 +9,7 @@
 <!--                            <a class="btn btn-xs btn-secondary" href="#" data-abc="true">Let's Chat App</a>-->
                         </div>
                         <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:400px !important;">
-                            <ChatMessage />
+                            <ChatMessage v-for="chat in chatMessages" :key="chat.id" :chat="chat" />
 
                             <!--
                             <div class="media media-chat"> <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
@@ -96,9 +96,37 @@
 
     export default {
         name: 'LiveChat',
+        props: ['chatId'],
+        data() {
+            return {
+                checkInterval: null,
+                chatMessages: null,
+            }
+        },
+        created() {
+            let that = this;
+            this.checkInterval = setInterval(function () {
+                that.axios.get('http://localhost:5000/chat-messages',
+                    { params: { chat_id: that.chatId }, withCredentials: true }
+                ).then((response) => {
+                    if (response.data
+                        && !response.data.error
+                        && response.data.messages) {
+
+                        that.chatMessages = response.data.messages;
+                    }
+                })
+            }, 1000);
+        },
+        beforeDestroy() {
+            if (typeof this.checkInterval !== 'undefined') {
+                clearInterval(this.checkInterval);
+                this.checkInterval = null;
+            }
+        },
         components: {
             ChatMessage
-        }
+        },
     }
 </script>
 
