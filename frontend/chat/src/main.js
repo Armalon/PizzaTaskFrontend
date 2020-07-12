@@ -7,6 +7,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueRouter from 'vue-router'
 import LiveChat from "./components/LiveChat";
+import Home from "./components/Home";
 
 Vue.config.productionTip = false
 
@@ -29,7 +30,7 @@ const routes = [
     {
         name: 'home',
         path: '/',
-        component: App,
+        component: Home,
     },
     {
         name: 'chat',
