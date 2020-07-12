@@ -1,7 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import VuexPersistence from 'vuex-persist'
+
 Vue.use(Vuex);
+
+const vuexPersist = new VuexPersistence({
+    key: 'firstchat',
+    storage: localStorage
+});
 
 const state = {
     iAmAuthorized: null // null or user data
@@ -29,5 +36,6 @@ export const store = new Vuex.Store({
     state,
     mutations,
     actions,
-    getters
+    getters,
+    plugins: [vuexPersist.plugin]
 });
