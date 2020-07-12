@@ -1,3 +1,5 @@
 /server-env
 /.idea
+.idea/
+frontend/.idea/
 *.pyc
