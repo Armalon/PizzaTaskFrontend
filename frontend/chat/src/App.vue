@@ -17,6 +17,13 @@
             <button @click="loggingMeOut">Logging out</button>
         </div>
 
+        <div v-if="chatList">
+            <br><br>
+            <div v-for="chat in chatList" :key="chat.id">
+                <router-link :to="{ name: 'chat', params: { chatId: chat.id } }">{{ chat.name }}</router-link>
+                <br><br>
+            </div>
+        </div>
         <LiveChat v-if="iAmAuthorized"/>
     </div>
 </template>
@@ -56,14 +63,12 @@
             setInterval(() => {
                 if (this.iAmAuthorized) {
                     this.axios.get('http://localhost:5000/mychats', { withCredentials: true }).then((response) => {
-                        console.log('response.data', response.data);
-                        
-                        // if (response.data
-                        //     && !response.data.error
-                        //     && response.data.user) {
-                        //
-                        //     this.$store.dispatch('setIAmAuthorized', response.data.user);
-                        // }
+                        if (response.data
+                            && !response.data.error
+                            && response.data.chats) {
+
+                            this.chatList = response.data.chats;
+                        }
                     })
                 }
             }, 1000);
