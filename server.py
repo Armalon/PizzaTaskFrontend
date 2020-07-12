@@ -162,13 +162,26 @@ def mychats():
 def chat_messages():
     """
     Show all Messages in a Chat
+    req.args: {
+        chat_id
+    }
     :return:
     {
         error: 0,
         messages: [...Message]
     }
     """
-    pass
+    result = {
+        'error': 1,
+        'messages': []
+    }
+
+    if request.args.get('chat_id') != None:
+        messages = query_db('SELECT * FROM chat_messages WHERE chat_id = ?', [request.args.get('chat_id')])
+        result['error'] = 0
+        result['messages'] = messages
+
+    return result
 
 
 @app.route('/chat-post-message')
