@@ -7,7 +7,7 @@ import os
 
 # https://flask.palletsprojects.com/en/1.1.x/quickstart/
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
@@ -150,8 +150,9 @@ def mychats():
         'error': 0,
         'chats': []
     }
-    chats_rows = query_db('select * from chats')
-    result['chats'] = chats_rows
+    if 'user_id' in session:
+        chats_rows = query_db('SELECT * FROM chats WHERE user1_id = ? OR user2_id = ?', [session['user_id'], session['user_id']])
+        result['chats'] = chats_rows
     # for chat in query_db('select * from chats'):
     #     print(chat['name'])
     return result

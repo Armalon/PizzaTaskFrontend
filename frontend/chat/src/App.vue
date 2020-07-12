@@ -26,9 +26,14 @@
 
     export default {
         name: 'App',
+        data() {
+            return {
+                chatList: null
+            }
+        },
         methods: {
             authorizeMe() {
-                this.axios.get('http://localhost:5000/login').then((response) => {
+                this.axios.get('http://localhost:5000/login', { withCredentials: true }).then((response) => {
                     if (response.data
                         && !response.data.error
                         && response.data.user) {
@@ -38,7 +43,7 @@
                 })
             },
             loggingMeOut() {
-                this.axios.get('http://localhost:5000/logout').then((response) => {
+                this.axios.get('http://localhost:5000/logout', { withCredentials: true }).then((response) => {
                     if (response.data
                         && !response.data.error) {
 
@@ -46,6 +51,22 @@
                     }
                 })
             },
+        },
+        created() {
+            setInterval(() => {
+                if (this.iAmAuthorized) {
+                    this.axios.get('http://localhost:5000/mychats', { withCredentials: true }).then((response) => {
+                        console.log('response.data', response.data);
+                        
+                        // if (response.data
+                        //     && !response.data.error
+                        //     && response.data.user) {
+                        //
+                        //     this.$store.dispatch('setIAmAuthorized', response.data.user);
+                        // }
+                    })
+                }
+            }, 1000);
         },
         components: {
             LiveChat
