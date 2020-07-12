@@ -72,7 +72,14 @@
                         <div class="publisher bt-1 border-light">
                             <img class="avatar avatar-xs"
                                  src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
-                            <input class="publisher-input" type="text" placeholder="Write something">
+
+                            <input
+                                    v-model="currentMessageText"
+                                    class="publisher-input"
+                                    type="text"
+                                    placeholder="Write something"
+                                    @keydown.enter.exact.prevent="sendMessage">
+
                             <span class="publisher-btn file-group">
                                 <i class="fa fa-paperclip file-browser"></i>
                                 <input type="file">
@@ -101,6 +108,30 @@
             return {
                 checkInterval: null,
                 chatMessages: null,
+                currentMessageText: '',
+            }
+        },
+        methods: {
+            sendMessage() {
+                if (!this.currentMessageText.trim()) {
+                    return;
+                }
+                const messageText = this.currentMessageText;
+                this.currentMessageText = '';
+
+                this.sendPost({ messageText });
+            },
+            sendPost({ messageText }) {
+                this.axios.get('http://localhost:5000/chat-post-message',
+                    { params: { chat_id: this.chatId, text: messageText }, withCredentials: true }
+                ).then((response) => {
+                    if (response.data
+                        && !response.data.error
+                        && response.data.message) {
+
+                        // do nothing
+                    }
+                })
             }
         },
         created() {
