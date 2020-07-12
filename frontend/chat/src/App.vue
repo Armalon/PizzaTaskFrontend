@@ -2,9 +2,22 @@
     <div id="app">
         <h1>This is gonna be our chat</h1>
 
-        <button v-if="!iAmAuthorized" @click="authorizeMe">Authorise me</button>
-        <button v-if="iAmAuthorized" @click="loggingMeOut">Logging out</button>
-        <LiveChat />
+        <div v-if="!iAmAuthorized">
+            <p>
+                You need to be authorized to get access to the chat. You will get random user credential by pressing a button below.
+            </p>
+            <button @click="authorizeMe">Authorise me</button>
+        </div>
+
+        <div v-if="iAmAuthorized">
+            <p>
+                Now you are authorized. Hello <b><i>{{ username }}</i></b>
+            </p>
+
+            <button @click="loggingMeOut">Logging out</button>
+        </div>
+
+        <LiveChat v-if="iAmAuthorized"/>
     </div>
 </template>
 

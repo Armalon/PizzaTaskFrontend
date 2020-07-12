@@ -12,6 +12,9 @@ Vue.mixin({
     computed: {
         iAmAuthorized() {
             return this.$store.getters.iAmAuthorized;
+        },
+        username() {
+            return this.iAmAuthorized && this.iAmAuthorized.name ? this.iAmAuthorized.name : null
         }
     },
 })
