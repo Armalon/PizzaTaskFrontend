@@ -1,4 +1,4 @@
-from flask import Flask, escape, request, url_for, render_template, make_response, g
+from flask import Flask, escape, request, url_for, render_template, make_response, g, session
 # https://flask.palletsprojects.com/en/1.1.x/patterns/sqlite3/#sqlite3
 import sqlite3
 
@@ -6,6 +6,8 @@ import os
 
 # https://flask.palletsprojects.com/en/1.1.x/quickstart/
 app = Flask(__name__)
+
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 DATABASE = 'database/chat_database.db'
 
@@ -84,17 +86,36 @@ def test():
 @app.route('/login')
 def login():
     """
-    Authorizing user and setting it's data into a session
+    Checking if user is authorized and authorizing if not (as a random user)
     req.args: {
-        login: String,
-        pass: String
+        # login: String,
+        # pass: String
     }
     :return:
     {
+        user: User,
         error: 0,
     }
     """
-    pass
+
+    result = {
+        'error': 0,
+        'user': None
+    }
+    if 'user_id' in session:
+        result['user'] = {
+            'id': session['user_id'],
+            'name': session['user_name'],
+        }
+    else:
+        random_user = query_db('SELECT * FROM users ORDER BY RANDOM() LIMIT 1', (), True)
+        if random_user != None:
+            result['user'] = random_user
+            session['user_id'] = random_user['id']
+            session['user_name'] = random_user['name']
+        else:
+            result['error'] = 1
+    return result
 
 
 @app.route('/logout')
@@ -106,6 +127,11 @@ def logout():
         error: 0,
     }
     """
+    session.pop('user_id', None)
+    session.pop('user_name', None)
+    return {
+        'error': 0
+    }
 
 
 @app.route('/mychats')
