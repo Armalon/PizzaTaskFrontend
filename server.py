@@ -16,10 +16,10 @@ def get_db():
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
 
-    # def make_dicts(cursor, row):
-    #     return dict((cursor.description[idx][0], value)
-    #                 for idx, value in enumerate(row))
-    db.row_factory = sqlite3.Row
+    def make_dicts(cursor, row):
+        return dict((cursor.description[idx][0], value)
+                    for idx, value in enumerate(row))
+    db.row_factory = make_dicts
 
     return db
 
@@ -118,10 +118,15 @@ def mychats():
         chats: [...Chat]
     }
     """
+    result = {
+        'error': 0,
+        'chats': []
+    }
+    chats_rows = query_db('select * from chats')
+    result['chats'] = chats_rows
     # for chat in query_db('select * from chats'):
     #     print(chat['name'])
-    # return 'Done'
-    #     # print user['username'], 'has the id', user['user_id']
+    return result
 
 
 @app.route('/chat-messages')
