@@ -11,6 +11,10 @@ Python version 3.7+ is required
 
 `source server-env/bin/activate`
 
+(For deactivation run)
+
+`deactivate`
+
 2. Start the App as a service using flask
 
-`env FLASK_APP=server.py flask run --host=0.0.0.0`
+`env FLASK_APP=server.py flask run`
