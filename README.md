@@ -15,6 +15,10 @@ Python version 3.7+ is required
 
 `deactivate`
 
-2. Start the App as a service using flask
+2. Init db by running the following script
+
+`python init_db.py` 
+
+3. Start the App as a service using flask
 
 `env FLASK_APP=server.py flask run`
