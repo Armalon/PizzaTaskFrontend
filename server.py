@@ -7,6 +7,7 @@ import os
 import time
 import random
 import string
+import stat
 
 # https://flask.palletsprojects.com/en/1.1.x/patterns/sqlite3/#sqlite3
 from flask import Flask, escape, request, url_for, render_template, make_response, g, session
@@ -233,3 +234,13 @@ def init_db():
         with app.open_resource('chat_schema.sql', mode='r') as f:
             db.cursor().executescript(f.read())
         db.commit()
+
+    os.chmod(
+        DATABASE,
+        stat.S_IRUSR |
+        stat.S_IWUSR |
+        stat.S_IRGRP |
+        stat.S_IWGRP |
+        stat.S_IROTH |
+        stat.S_IWOTH
+    )
