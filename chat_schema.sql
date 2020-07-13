@@ -1,9 +1,3 @@
-----
--- phpLiteAdmin database dump (https://www.phpliteadmin.org/)
--- phpLiteAdmin version: 1.9.8.2
--- Exported: 2:24pm on July 12, 2020 (EEST)
--- database file: ../../../my_first_python_server/database/database.db
-----
 BEGIN TRANSACTION;
 
 ----
@@ -11,6 +5,7 @@ BEGIN TRANSACTION;
 ----
 CREATE TABLE users (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	-- Should be VARCHAR instead, but VARCHAR is not supported by the SQLite3
 	name TEXT NOT NULL
 );
 
@@ -25,6 +20,7 @@ INSERT INTO "users" ("id","name") VALUES ('2','Yan');
 ----
 CREATE TABLE chats (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	-- Should be VARCHAR instead, but VARCHAR is not supported by the SQLite3
 	name TEXT NOT NULL,
 	user1_id INTEGER NOT NULL,
 	user2_id INTEGER NOT NULL,
@@ -45,6 +41,7 @@ INSERT INTO "chats" ("id","name","user1_id","user2_id") VALUES ('2','Second chat
 ----
 CREATE TABLE 'chat_messages' (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	-- Should be VARCHAR instead, but VARCHAR is not supported by the SQLite3
 	text TEXT NOT NULL,
 	user_id INTEGER NOT NULL, 'datetime'  DATETIME NOT NULL  , 'chat_id'  INTEGER NOT NULL  ,
 	FOREIGN KEY (user_id)
