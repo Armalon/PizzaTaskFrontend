@@ -3,6 +3,8 @@
 
 import os
 import time
+import random
+import string
 
 # https://flask.palletsprojects.com/en/1.1.x/patterns/sqlite3/#sqlite3
 from flask import Flask, escape, request, url_for, render_template, make_response, g, session
@@ -20,7 +22,11 @@ app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
 # Secret key for Session
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+# byte encoded random string of length 16
+# Notice: All sessions will be dropped on web server restart
+app.secret_key = str.encode(''.join(
+    random.choice(string.ascii_lowercase) for i in range(16)
+))
 
 
 # Init DB method for external usage
