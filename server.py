@@ -1,6 +1,8 @@
 # All in one Simple Chat server using Flask as a web server and SQLite3 as DB
 # Made for educational purposes
 
+
+# IMPORTS SECTION>
 import os
 import time
 import random
@@ -12,7 +14,10 @@ from flask_cors import CORS
 
 # https://docs.python.org/3/library/sqlite3.html
 import sqlite3
+# <IMPORTS SECTION
 
+
+# INIT APP>
 # A link to a SQLite DB file
 DATABASE = 'database/chat_database.db'
 
@@ -28,21 +33,16 @@ app.secret_key = str.encode(''.join(
     random.choice(string.ascii_lowercase) for i in range(16)
 ))
 
-
-# Init DB method for external usage
-# Usage:
-# >>> from server import init_db
-# >>> init_db()
-def init_db():
-    if os.path.exists(DATABASE):
-        os.remove(DATABASE)
-    with app.app_context():
-        db = get_db()
-        with app.open_resource('chat_schema.sql', mode='r') as f:
-            db.cursor().executescript(f.read())
-        db.commit()
+# On app closing
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+# <INIT APP
 
 
+# ROUTING>
 @app.route('/')
 def home():
     result = {
@@ -65,6 +65,7 @@ def login():
         error: 0,
     }
     """
+
     result = {
         'error': 0,
         'user': None
@@ -140,6 +141,7 @@ def chat_messages():
         'error': 1,
         'messages': []
     }
+
     if request.args.get('chat_id') is not None:
         messages = query_db('SELECT * FROM chat_messages WHERE chat_id = ?', [request.args.get('chat_id')])
         result['error'] = 0
@@ -166,6 +168,7 @@ def chat_post_message():
         'error': 1,
         'message': None
     }
+
     if 'user_id' in session \
             and request.args.get('chat_id') is not None \
             and request.args.get('text') is not None:
@@ -182,17 +185,23 @@ def chat_post_message():
         message['id'] = inserted_id
         result['message'] = message
     return result
+# <ROUTING
 
 
+# HELPERS>
 # getting DB instance
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
+
+    # db.set_trace_callback(print)
+
     def make_dicts(cursor, row):
         return dict((cursor.description[idx][0], value)
                     for idx, value in enumerate(row))
     db.row_factory = make_dicts
+
     return db
 
 
@@ -208,11 +217,19 @@ def insert_db(query, args=()):
     cur.execute(query, args)
     get_db().commit()
     return cur.lastrowid
+# <HELPERS
 
 
-# on app closing
-@app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
+# Init DB method for external usage
+# Usage:
+# >>> from server import init_db
+# >>> init_db()
+def init_db():
+    if os.path.exists(DATABASE):
+        os.remove(DATABASE)
+
+    with app.app_context():
+        db = get_db()
+        with app.open_resource('chat_schema.sql', mode='r') as f:
+            db.cursor().executescript(f.read())
+        db.commit()
