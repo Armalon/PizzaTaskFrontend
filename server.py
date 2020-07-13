@@ -1,50 +1,29 @@
-from flask import Flask, escape, request, url_for, render_template, make_response, g, session
-# https://flask.palletsprojects.com/en/1.1.x/patterns/sqlite3/#sqlite3
-import sqlite3
-import time
-from flask_cors import CORS
+# All in one Simple Chat server using Flask as a web server and SQLite3 as DB
+# Made for educational purposes
 
 import os
+import time
 
-# https://flask.palletsprojects.com/en/1.1.x/quickstart/
-app = Flask(__name__)
-CORS(app, supports_credentials=True)
+# https://flask.palletsprojects.com/en/1.1.x/patterns/sqlite3/#sqlite3
+from flask import Flask, escape, request, url_for, render_template, make_response, g, session
+from flask_cors import CORS
 
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+# https://docs.python.org/3/library/sqlite3.html
+import sqlite3
 
+# A link to a SQLite DB file
 DATABASE = 'database/chat_database.db'
 
+# Setting up a Flask server
+app = Flask(__name__)
+# Using a CORS module for cross domain requests between Front and Back
+CORS(app, supports_credentials=True)
 
-# getting DB instance
-def get_db():
-    db = getattr(g, '_database', None)
-    if db is None:
-        db = g._database = sqlite3.connect(DATABASE)
-
-    # db.set_trace_callback(print)
-
-    def make_dicts(cursor, row):
-        return dict((cursor.description[idx][0], value)
-                    for idx, value in enumerate(row))
-    db.row_factory = make_dicts
-
-    return db
+# Secret key for Session
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
-def query_db(query, args=(), one=False):
-    cur = get_db().execute(query, args)
-    rv = cur.fetchall()
-    cur.close()
-    return (rv[0] if rv else None) if one else rv
-
-
-def insert_db(query, args=()):
-    cur = get_db().cursor()
-    cur.execute(query, args)
-    get_db().commit()
-    return cur.lastrowid
-
-# Init DB
+# Init DB method for external usage
 # Usage:
 # >>> from server import init_db
 # >>> init_db()
@@ -61,37 +40,10 @@ def init_db():
 
 @app.route('/')
 def home():
-    # todo: Show login and passwords on a main web page for easy access
-
-    name = request.args.get('name',
-                            'World')  # this is context local https://flask.palletsprojects.com/en/1.1.x/quickstart/#context-locals
-    # request.method
-    # request.form
-    # request.args.get
-    # request.cookies.get('username')
-    username = request.cookies.get('username')
-    link_address = url_for('show_user_profile', username='test')
-    static_link = url_for('static', filename='style.css')
-    return f'Hello!, {escape(name)}. Here is the link to <a href="{link_address}">{username}</a> <br> and here is s just <a href="{static_link}">link</a>'
-
-
-@app.route('/upload', methods=['GET', 'POST'])
-def upload_file():
-    if request.method == 'POST':
-        f = request.files['the_file']
-        # f.save('/var/www/uploads/' + secure_filename(f.filename))
-
-
-@app.route('/user/<username>', methods=['GET', 'POST'])
-def show_user_profile(username):
-    return render_template('hello.html', username=username)
-
-
-@app.route('/test')
-def test():
-    resp = make_response(render_template('just_cookies.html'))
-    resp.set_cookie('username', 'the username')
-    return resp
+    result = {
+        'error': 0
+    }
+    return result
 
 
 @app.route('/login')
@@ -228,6 +180,36 @@ def chat_post_message():
         message['id'] = inserted_id
         result['message'] = message
     return result
+
+
+# getting DB instance
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(DATABASE)
+
+    # db.set_trace_callback(print)
+
+    def make_dicts(cursor, row):
+        return dict((cursor.description[idx][0], value)
+                    for idx, value in enumerate(row))
+    db.row_factory = make_dicts
+
+    return db
+
+
+def query_db(query, args=(), one=False):
+    cur = get_db().execute(query, args)
+    rv = cur.fetchall()
+    cur.close()
+    return (rv[0] if rv else None) if one else rv
+
+
+def insert_db(query, args=()):
+    cur = get_db().cursor()
+    cur.execute(query, args)
+    get_db().commit()
+    return cur.lastrowid
 
 
 # on app closing
