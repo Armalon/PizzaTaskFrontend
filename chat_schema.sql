@@ -23,11 +23,7 @@ CREATE TABLE chats (
 	-- Should be VARCHAR instead, but VARCHAR is not supported by the SQLite3
 	name TEXT NOT NULL,
 	user1_id INTEGER NOT NULL,
-	user2_id INTEGER NOT NULL,
-	FOREIGN KEY (user1_id)
-      REFERENCES users (id)
-         ON DELETE CASCADE
-         ON UPDATE NO ACTION
+	user2_id INTEGER NOT NULL
 );
 
 ----
@@ -43,11 +39,7 @@ CREATE TABLE 'chat_messages' (
 	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	-- Should be VARCHAR instead, but VARCHAR is not supported by the SQLite3
 	text TEXT NOT NULL,
-	user_id INTEGER NOT NULL, 'datetime'  DATETIME NOT NULL  , 'chat_id'  INTEGER NOT NULL  ,
-	FOREIGN KEY (user_id)
-      REFERENCES users (id)
-         ON DELETE CASCADE
-         ON UPDATE NO ACTION
+	user_id INTEGER NOT NULL, 'datetime'  DATETIME NOT NULL  , 'chat_id'  INTEGER NOT NULL
 );
 
 ----
