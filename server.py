@@ -78,7 +78,7 @@ def login():
         }
     else:
         random_user = query_db('SELECT * FROM users ORDER BY RANDOM() LIMIT 1', (), True)
-        if random_user != None:
+        if random_user is not None:
             result['user'] = random_user
             session['user_id'] = random_user['id']
             session['user_name'] = random_user['name']
@@ -143,7 +143,7 @@ def chat_messages():
         'messages': []
     }
 
-    if request.args.get('chat_id') != None:
+    if request.args.get('chat_id') is not None:
         messages = query_db('SELECT * FROM chat_messages WHERE chat_id = ?', [request.args.get('chat_id')])
         result['error'] = 0
         result['messages'] = messages
@@ -171,8 +171,8 @@ def chat_post_message():
     }
 
     if 'user_id' in session \
-            and request.args.get('chat_id') != None \
-            and request.args.get('text') != None:
+            and request.args.get('chat_id') is not None \
+            and request.args.get('text') is not None:
         message = {
             'text': request.args.get('text'),
             'user_id': session['user_id'],
