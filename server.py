@@ -36,7 +36,6 @@ app.secret_key = str.encode(''.join(
 def init_db():
     if os.path.exists(DATABASE):
         os.remove(DATABASE)
-
     with app.app_context():
         db = get_db()
         with app.open_resource('chat_schema.sql', mode='r') as f:
@@ -66,7 +65,6 @@ def login():
         error: 0,
     }
     """
-
     result = {
         'error': 0,
         'user': None
@@ -142,7 +140,6 @@ def chat_messages():
         'error': 1,
         'messages': []
     }
-
     if request.args.get('chat_id') is not None:
         messages = query_db('SELECT * FROM chat_messages WHERE chat_id = ?', [request.args.get('chat_id')])
         result['error'] = 0
@@ -169,7 +166,6 @@ def chat_post_message():
         'error': 1,
         'message': None
     }
-
     if 'user_id' in session \
             and request.args.get('chat_id') is not None \
             and request.args.get('text') is not None:
@@ -193,14 +189,10 @@ def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
-
-    # db.set_trace_callback(print)
-
     def make_dicts(cursor, row):
         return dict((cursor.description[idx][0], value)
                     for idx, value in enumerate(row))
     db.row_factory = make_dicts
-
     return db
 
 
