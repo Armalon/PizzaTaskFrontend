@@ -1,4 +1,6 @@
 /server-env
+/.env
+/database/chat_database.db
 /.idea
 .idea/
 frontend/.idea/
