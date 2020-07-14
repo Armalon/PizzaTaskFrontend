@@ -79,6 +79,7 @@ def login():
     else:
         try:
             random_user = query_db('SELECT * FROM users ORDER BY RANDOM() LIMIT 1', (), True)
+            # todo: Return a Row object and turn it into a predefined model
         except sqlite3.Error as ex:
             result['error'] = 2
             # or raise further maybe
