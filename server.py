@@ -63,7 +63,7 @@ def login():
     :return:
     {
         user: User,
-        error: 0,
+        error: 0,  # 2 - DB error
     }
     """
 
@@ -77,7 +77,12 @@ def login():
             'name': session['user_name'],
         }
     else:
-        random_user = query_db('SELECT * FROM users ORDER BY RANDOM() LIMIT 1', (), True)
+        try:
+            random_user = query_db('SELECT * FROM users ORDER BY RANDOM() LIMIT 1', (), True)
+        except sqlite3.Error as ex:
+            result['error'] = 2
+            return result
+
         if random_user is not None:
             result['user'] = random_user
             session['user_id'] = random_user['id']
@@ -166,7 +171,7 @@ def chat_post_message():
     }
     """
     result = {
-        'error': 1,
+        'error': 1,  # Not authorized
         'message': None
     }
 
