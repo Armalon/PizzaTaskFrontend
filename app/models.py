@@ -9,6 +9,7 @@ class User(db.Model):
     register_timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     phone = db.Column(db.String(20), index=True, unique=True)
     last_password_hash = db.Column(db.String(32))
+    # todo: Change to tomething like UTCNOW + 86400 seconds
     last_password_expires_timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     orders = db.relationship('Order', backref='customer', lazy='dynamic')
 
