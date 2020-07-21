@@ -2,6 +2,7 @@ import os
 import random
 import string
 
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     # Secret key for Session
@@ -10,4 +11,7 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or str.encode(''.join(
         random.choice(string.ascii_lowercase) for i in range(16)
     ))
+
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'app.db')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
