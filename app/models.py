@@ -23,7 +23,7 @@ class User(db.Model):
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    create_timestamp = db.Column(db.DateTime, unique=True)
+    create_timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
     # state enum(ordered, confirmed, cooked, delivered)
     # denormalization total_price
