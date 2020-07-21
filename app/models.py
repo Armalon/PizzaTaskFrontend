@@ -6,12 +6,13 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     address = db.Column(db.String(256), index=True, unique=True)
+    register_timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     phone = db.Column(db.String(20), index=True, unique=True)
     last_password_hash = db.Column(db.String(32))
+    last_password_expires_timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     orders = db.relationship('Order', backref='customer', lazy='dynamic')
+
     # denormalization bonuses
-    # register_date
-    # last_password_expires = db.Column(db.String(32))
     # denormalization orders_processed
 
 
