@@ -1,4 +1,4 @@
-# MyFirstPythonServer
+# ThePizzaTask
 
 A basic implementation for my first python server which is gonna be a chat with an authorization.
 All in one script server using Flask as a web server and SQLite3 as a Data Base.
