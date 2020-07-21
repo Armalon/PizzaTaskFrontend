@@ -7,6 +7,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 app = Flask(__name__)
+# Using a CORS module for cross domain requests between Front and Back
+CORS(app, supports_credentials=True)
 
 # Applying the config
 app.config.from_object(Config)
