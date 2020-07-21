@@ -1,4 +1,5 @@
 from app import db
+from datetime import datetime
 
 
 class User(db.Model):
@@ -7,6 +8,7 @@ class User(db.Model):
     address = db.Column(db.String(256), index=True, unique=True)
     phone = db.Column(db.String(20), index=True, unique=True)
     last_password_hash = db.Column(db.String(32))
+    orders = db.relationship('Order', backref='customer', lazy='dynamic')
     # denormalization bonuses
     # register_date
     # last_password_expires = db.Column(db.String(32))
@@ -15,3 +17,16 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    create_timestamp = db.Column(db.DateTime, unique=True)
+
+    # state enum(ordered, confirmed, cooked, delivered)
+    # denormalization total_price
+    # denormalization bonuses_earned
+
+    def __repr__(self):
+        return f'<Order #{self.id}>'
