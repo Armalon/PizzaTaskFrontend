@@ -4,6 +4,7 @@ from datetime import datetime
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    # todo: should NOT mbe unique, rather than a phone!
     username = db.Column(db.String(64), index=True, unique=True)
     address = db.Column(db.String(256), index=True, unique=True)
     register_timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
