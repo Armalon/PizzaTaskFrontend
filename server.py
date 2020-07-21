@@ -5,9 +5,9 @@
 # IMPORTS SECTION>
 import os
 import time
-import random
-import string
 import stat
+
+from config import Config
 
 # https://flask.palletsprojects.com/en/1.1.x/patterns/sqlite3/#sqlite3
 from flask import Flask, escape, request, url_for, render_template, make_response, g, session
@@ -27,12 +27,8 @@ app = Flask(__name__)
 # Using a CORS module for cross domain requests between Front and Back
 CORS(app, supports_credentials=True)
 
-# Secret key for Session
-# byte encoded random string of length 16
-# Notice: All sessions will be dropped on web server restart
-app.secret_key = str.encode(''.join(
-    random.choice(string.ascii_lowercase) for i in range(16)
-))
+# Applying the config
+app.config.from_object(Config)
 
 # On app closing
 @app.teardown_appcontext
