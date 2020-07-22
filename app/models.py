@@ -2,6 +2,7 @@ from app import db
 from datetime import datetime
 
 from sqlalchemy import func
+import enum
 
 
 class User(db.Model):
@@ -44,7 +45,43 @@ class Order(db.Model):
         return f'<Order #{self.id}>'
 
 
-# class Product(db.Model):
-#     id = db.Column(db.integer, primary_key=True)
+class ProductType(enum.Enum):
+    PIZZA = 'PIZZA'
+    DRINK = 'DRINK'
+
+
+class ProductSize(enum.Enum):
+    LARGE = 'LARGE'
+    MEDIUM = 'MEDIUM'
+    SMALL = 'SMALL'
+
+
+class PizzaBase(enum.Enum):
+    WHITE = 'WHITE'
+    RED = 'RED'
+
+
+class PizzaCrust(enum.Enum):
+    THIN = 'THIN'
+    THICK = 'THICK'
+
+
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.Enum(ProductType))
+    name = db.Column(db.String(64))
+    description = db.Column(db.String(256))
+    size = db.Column(db.Enum(ProductSize))
+    weight = db.Column(db.Integer)
+    volume = db.Column(db.Integer)
+    price = db.Column(db.Integer)
+    picture = db.Column(db.String(64))
+    base = db.Column(db.Enum(PizzaBase))
+    crust = db.Column(db.Enum(PizzaBase))
+    # calories
+    # search_result_order
+    # is_recommended
+    # is_available
+
 
 
