@@ -13,6 +13,8 @@ CORS(app, supports_credentials=True)
 # Applying the config
 app.config.from_object(Config)
 
+# User.query.filter_by(username='admin').first()
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 

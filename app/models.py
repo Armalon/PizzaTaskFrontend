@@ -1,8 +1,11 @@
 from app import db
 from datetime import datetime
 
+from sqlalchemy import func
+
 
 class User(db.Model):
+    # todo: add nullable=False fo fields
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=False)
     address = db.Column(db.String(256), index=True, unique=False)
@@ -16,6 +19,13 @@ class User(db.Model):
     # denormalization bonuses
     # denormalization orders_processed
 
+    @staticmethod
+    def load_random_user():
+        return User.query.order_by(func.random()).first()
+
+    @staticmethod
+    def load_user(user_id):
+        return User.query.get(int(user_id))
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -32,3 +42,9 @@ class Order(db.Model):
 
     def __repr__(self):
         return f'<Order #{self.id}>'
+
+
+# class Product(db.Model):
+#     id = db.Column(db.integer, primary_key=True)
+
+
