@@ -12,7 +12,13 @@
                     @souseBaseChange="souseBaseChange($event)"
                     @pizzaCrustChange="pizzaCrustChange($event)"></search-filters>
 
-            <div class="card-deck mb-3 text-center">
+            <div class="text-center" v-if="menuList == null">
+                <div class="spinner-border text-warning" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+
+            <div class="card-deck mb-3 text-center" v-if="menuList != null">
                 <menu-element></menu-element>
                 <menu-element></menu-element>
                 <menu-element></menu-element>
@@ -29,7 +35,7 @@
     export default {
         data() {
             return {
-                chatList: null,
+                menuList: null,
                 filters: {
                     souse_base: 'any',
                     pizza_crust: 'any',
@@ -64,18 +70,14 @@
             },
         },
         created() {
-            setInterval(() => {
-                if (this.iAmAuthorized) {
-                    // this.axios.get('http://localhost:5000/mychats', { withCredentials: true }).then((response) => {
-                    //     if (response.data
-                    //         && !response.data.error
-                    //         && response.data.chats) {
-                    //
-                    //         this.chatList = response.data.chats;
-                    //     }
-                    // })
+            this.axios.get('http://localhost:5000/menu', { withCredentials: true }).then((response) => {
+                if (response.data
+                    && !response.data.error
+                    && response.data.products) {
+
+                    this.menuList = response.data.products;
                 }
-            }, 1000);
+            })
         },
         components: {
             SearchFilters,
