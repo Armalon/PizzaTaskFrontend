@@ -55,3 +55,18 @@ def login():
             result['error'] = 1
     return result
 
+
+@app.route('/logout')
+def logout():
+    """
+    Logging user out
+    :return:
+    {
+        error: 0,
+    }
+    """
+    session.pop('user_id', None)
+    session.pop('user_name', None)
+    return {
+        'error': 0
+    }
