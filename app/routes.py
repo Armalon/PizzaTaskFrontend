@@ -1,8 +1,8 @@
-from app import app, session
+from app import app, session, request
 
 import sqlite3
 
-from app.models import User
+from app.models import User, Product
 
 
 @app.route('/')
@@ -70,3 +70,18 @@ def logout():
     return {
         'error': 0
     }
+
+
+@app.route('/menu')
+def menu():
+    filters = request.args
+    # filtering out all not valid keys
+    filters = {k: v for (k, v) in filters.items() if k in {'type', 'base', 'crust'}}
+
+    products = Product.get_by_filters(filters)
+    products = [v.to_dict() for v in products]
+
+    return {
+        'products': products
+    }
+

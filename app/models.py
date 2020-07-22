@@ -83,5 +83,27 @@ class Product(db.Model):
     # is_recommended
     # is_available
 
+    @staticmethod
+    def get_by_filters(filters=None):
+        # type, base, crust
+        if filters is None:
+            filters = {}
+
+        return Product.query.filter_by(**filters).all()
+
+    def to_dict(self):
+        return {
+            'type': self.type.value,
+            'name': self.name,
+            'description': self.description,
+            'size': self.size.value,
+            'weight': self.weight,
+            'volume': self.volume,
+            'price': self.price,
+            'picture': self.picture,
+            'base': self.base.value,
+            'crust': self.crust.value,
+        }
+
 
 
