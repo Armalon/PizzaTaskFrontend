@@ -29,7 +29,7 @@ def upgrade():
     sa.Column('price', sa.Integer(), nullable=True),
     sa.Column('picture', sa.String(length=64), nullable=True),
     sa.Column('base', sa.Enum('WHITE', 'RED', name='pizzabase'), nullable=True),
-    sa.Column('crust', sa.Enum('WHITE', 'RED', name='pizzabase'), nullable=True),
+    sa.Column('crust', sa.Enum('THIN', 'THICK', name='pizzacrust'), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###

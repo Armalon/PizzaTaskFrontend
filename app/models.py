@@ -77,7 +77,7 @@ class Product(db.Model):
     price = db.Column(db.Integer)
     picture = db.Column(db.String(64))
     base = db.Column(db.Enum(PizzaBase))
-    crust = db.Column(db.Enum(PizzaBase))
+    crust = db.Column(db.Enum(PizzaCrust))
     # calories
     # search_result_order
     # is_recommended
