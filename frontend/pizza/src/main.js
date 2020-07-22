@@ -8,6 +8,7 @@ import VueAxios from 'vue-axios'
 import VueRouter from 'vue-router'
 
 import Home from "./components/Home";
+import Contacts from "./components/Contacts";
 
 Vue.config.productionTip = false
 
@@ -31,6 +32,11 @@ const routes = [
         name: 'home',
         path: '/',
         component: Home,
+    },
+    {
+        name: 'contacts',
+        path: '/contacts',
+        component: Contacts,
     },
 ];
 
