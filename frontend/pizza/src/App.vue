@@ -5,6 +5,8 @@
 
             <navigation></navigation>
 
+            <login></login>
+
             <currencies></currencies>
 
             <cart></cart>
@@ -19,6 +21,7 @@
     import Navigation from "./components/Navigation"
     import Currencies from './components/Currencies'
     import Cart from "./components/Cart";
+    import Login from "./components/Login";
 
     export default {
         name: 'App',
@@ -26,7 +29,8 @@
             Logo,
             Navigation,
             Currencies,
-            Cart
+            Cart,
+            Login
         }
     }
 </script>
