@@ -1,31 +1,29 @@
 <template>
     <div>
-        <div v-if="!iAmAuthorized">
-            <p>
-                You need to be authorized to get access to the pizza. You will get random user credential by pressing a button below.
+        <div class="px-3 py-3 pb-md-4 mx-auto text-center">
+            <h1 class="display-4">Menu</h1>
+            <p class="lead">
+                Our delicious pizza will not leave you indifferent
             </p>
-            <button @click="authorizeMe">Authorise me</button>
         </div>
 
-        <div v-if="iAmAuthorized">
-            <p>
-                Now you are authorized. Hello <b><i>{{ username }}</i></b>
-            </p>
+        <div class="container">
+            <search-filters></search-filters>
 
-            <button @click="loggingMeOut">Logging out</button>
-        </div>
-
-        <div v-if="chatList">
-            <br><br>
-            <div v-for="chat in chatList" :key="chat.id">
-                <router-link :to="{ name: 'chat', params: { chatId: chat.id } }">{{ chat.name }}</router-link>
-                <br><br>
+            <div class="card-deck mb-3 text-center">
+                <menu-element></menu-element>
+                <menu-element></menu-element>
+                <menu-element></menu-element>
             </div>
         </div>
+
     </div>
 </template>
 
 <script>
+    import SearchFilters from "./SearchFilters";
+    import MenuElement from "./MenuElement";
+
     export default {
         data() {
             return {
@@ -68,6 +66,8 @@
             }, 1000);
         },
         components: {
+            SearchFilters,
+            MenuElement
         },
     }
 </script>
