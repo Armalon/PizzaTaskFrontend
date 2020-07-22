@@ -18,15 +18,13 @@
                 </div>
             </div>
 
-            {{ filteredMenuList }}
-
-            <div class="card-deck mb-3 text-center" v-if="menuList != null">
-                <menu-element></menu-element>
-                <menu-element></menu-element>
-                <menu-element></menu-element>
+            <div class="card-columns mb-3 text-center" v-if="menuList != null">
+                <menu-element
+                        v-for="menuElement in filteredMenuList"
+                        :element="menuElement"
+                        :key="menuElement.id">
+                </menu-element>
             </div>
-
-
         </div>
 
     </div>

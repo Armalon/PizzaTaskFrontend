@@ -2,19 +2,19 @@
     <div class="card mb-4 shadow-sm">
         <img src="../assets/portato.jpg" class="card-img-top" alt="...">
         <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Portato</h4>
+            <h4 class="my-0 font-weight-normal">{{ element.name }}</h4>
         </div>
         <div class="card-body">
             <h2 class="card-title pricing-card-title">
-                $5
+                ${{ element.price }}
             </h2>
             <p class="card-text">
-                sour cream sauce, mozzarella, boiled smoked shoulder, champignons, processed Cheddar cheese, garlic oil, herbs
+                {{ element.description }}
             </p>
 
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Weight: 1251 gramm</li>
-                <li class="list-group-item">Size: Large</li>
+                <li class="list-group-item">Weight: {{ element.weight }} gramm</li>
+                <li class="list-group-item">Size: {{ element.size }}</li>
             </ul>
         </div>
         <div class="card-footer">
@@ -38,5 +38,6 @@
 
 <script>
     export default {
+        props: ['element']
     }
 </script>
