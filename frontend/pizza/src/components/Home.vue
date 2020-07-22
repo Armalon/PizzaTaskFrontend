@@ -18,11 +18,15 @@
                 </div>
             </div>
 
+            {{ filteredMenuList }}
+
             <div class="card-deck mb-3 text-center" v-if="menuList != null">
                 <menu-element></menu-element>
                 <menu-element></menu-element>
                 <menu-element></menu-element>
             </div>
+
+
         </div>
 
     </div>
@@ -68,6 +72,24 @@
             pizzaCrustChange(val) {
                 this.filters.pizza_crust = val
             },
+        },
+        computed: {
+            filteredMenuList() {
+                return this.menuList.filter(product => {
+                    for (let key in this.filters) {
+                        if (this.filters[key] !== 'any') {
+                            if (key === 'souse_base' && product.base.toLowerCase() !== this.filters[key]) {
+                                return false;
+                            }
+                            if (key === 'pizza_crust' && product.crust.toLowerCase() !== this.filters[key]) {
+                                return false;
+                            }
+                        }
+                    }
+
+                    return true;
+                })
+            }
         },
         created() {
             this.axios.get('http://localhost:5000/menu', { withCredentials: true }).then((response) => {
