@@ -8,7 +8,9 @@
         </div>
 
         <div class="container">
-            <search-filters></search-filters>
+            <search-filters
+                    @souseBaseChange="souseBaseChange($event)"
+                    @pizzaCrustChange="pizzaCrustChange($event)"></search-filters>
 
             <div class="card-deck mb-3 text-center">
                 <menu-element></menu-element>
@@ -27,7 +29,11 @@
     export default {
         data() {
             return {
-                chatList: null
+                chatList: null,
+                filters: {
+                    souse_base: 'any',
+                    pizza_crust: 'any',
+                }
             }
         },
         methods: {
@@ -49,6 +55,12 @@
                         this.$store.dispatch('setIAmAuthorized', null);
                     }
                 })
+            },
+            souseBaseChange(val) {
+                this.filters.souse_base = val
+            },
+            pizzaCrustChange(val) {
+                this.filters.pizza_crust = val
             },
         },
         created() {
