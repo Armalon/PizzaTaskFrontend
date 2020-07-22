@@ -2,7 +2,7 @@
     <div>
         <div v-if="!iAmAuthorized">
             <p>
-                You need to be authorized to get access to the chat. You will get random user credential by pressing a button below.
+                You need to be authorized to get access to the pizza. You will get random user credential by pressing a button below.
             </p>
             <button @click="authorizeMe">Authorise me</button>
         </div>
@@ -56,14 +56,14 @@
         created() {
             setInterval(() => {
                 if (this.iAmAuthorized) {
-                    this.axios.get('http://localhost:5000/mychats', { withCredentials: true }).then((response) => {
-                        if (response.data
-                            && !response.data.error
-                            && response.data.chats) {
-
-                            this.chatList = response.data.chats;
-                        }
-                    })
+                    // this.axios.get('http://localhost:5000/mychats', { withCredentials: true }).then((response) => {
+                    //     if (response.data
+                    //         && !response.data.error
+                    //         && response.data.chats) {
+                    //
+                    //         this.chatList = response.data.chats;
+                    //     }
+                    // })
                 }
             }, 1000);
         },
