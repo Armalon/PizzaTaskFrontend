@@ -1,18 +1,25 @@
 <template>
-    <div class="my-2">
+    <div class="my-2 p-4">
         <div v-if="!iAmAuthorized">
-            <p>
-                You need to be authorized to get access to the chat. You will get random user credential by pressing a button below.
-            </p>
-            <button class="btn btn-outline-primary" @click="authorizeMe">Authorise me</button>
+            <button
+                    class="btn btn-outline-primary my-2"
+                    @click="authorizeMe"
+                    title="You will get random user credential">Sign in</button>
+
+            <div class="alert alert-primary" role="alert">
+                You will get random user credential
+            </div>
         </div>
 
         <div v-if="iAmAuthorized">
-            <p>
-                Now you are authorized. Hello <b><i>{{ username }}</i></b>
-            </p>
+            <button
+                    class="btn btn-outline-primary my-2"
+                    @click="loggingMeOut"
+                    title="">Sign out</button>
 
-            <button class="btn btn-outline-primary" @click="loggingMeOut">Logging out</button>
+            <div class="alert alert-success" role="alert">
+                Hello, <b><i>{{ username }}</i></b>
+            </div>
         </div>
     </div>
 </template>
