@@ -87,6 +87,11 @@
         methods: {
             submitForm() {
                 const formData = {
+                    // getting rid of element field
+                    order: this.cartGlobal.map(el => { let element; ({ element, ...el } = el); element; return el }),
+                    name: this.name,
+                    phone: this.phone,
+                    address: this.address,
                     // ...
                 };
 
