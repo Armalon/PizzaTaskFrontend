@@ -8,13 +8,13 @@
                     </svg>
                     Cart
                 </span>
-                <router-link :to="{ name: 'cart' }" v-if="totalItems">
+                <router-link :to="{ name: 'cart' }" v-if="totalCartItems">
                     <ul class="list-unstyled card-text">
-                        <li class="text-nowrap">items ... {{ totalItems }}</li>
-                        <li class="text-nowrap">total price ... ${{ totalPrice }}</li>
+                        <li class="text-nowrap">items ... {{ totalCartItems }}</li>
+                        <li class="text-nowrap">total price ... ${{ totalCartPrice }}</li>
                     </ul>
                 </router-link>
-                <span v-if="!totalItems">
+                <span v-if="!totalCartItems">
                     Nothing here yet
                 </span>
             </span>
@@ -25,20 +25,6 @@
 <script>
     export default {
         computed: {
-            totalItems() {
-                let totalItems = 0
-                for (let i in this.cartGlobal) {
-                    totalItems += this.cartGlobal[i].quantity
-                }
-                return totalItems
-            },
-            totalPrice() {
-                let totalPrice = 0
-                for (let i in this.cartGlobal) {
-                    totalPrice += this.cartGlobal[i].quantity * this.cartGlobal[i].element.price
-                }
-                return totalPrice
-            }
         }
     }
 </script>

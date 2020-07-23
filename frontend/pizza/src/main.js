@@ -35,6 +35,20 @@ Vue.mixin({
         cartGlobal() {
             return this.$store.getters.getCart;
         },
+        totalCartItems() {
+            let totalItems = 0
+            for (let i in this.cartGlobal) {
+                totalItems += this.cartGlobal[i].quantity
+            }
+            return totalItems
+        },
+        totalCartPrice() {
+            let totalPrice = 0
+            for (let i in this.cartGlobal) {
+                totalPrice += this.cartGlobal[i].quantity * this.cartGlobal[i].element.price
+            }
+            return totalPrice
+        }
     },
     filters: {
         capitalize: function (value) {
