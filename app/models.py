@@ -36,6 +36,7 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     create_timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    products = db.relationship('ProductOrder', backref='order', lazy='dynamic')
 
     # state enum(ordered, confirmed, cooked, delivered)
     # denormalization total_price
@@ -50,6 +51,7 @@ class ProductOrder(db.Model):
     product = db.relationship('Product')
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     quantity = db.Column(db.Integer)
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
 
 
 class ProductType(enum.Enum):
