@@ -21,16 +21,15 @@
         <div class="card-footer">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <button class="btn btn-primary">-</button>
+                    <button class="btn btn-success">-</button>
                 </div>
-                <input class="form-control" type="number">
+                <input class="form-control" type="number" readonly>
                 <div class="input-group-append">
-                    <button class="btn btn-primary">+</button>
+                    <button class="btn btn-success">+</button>
                 </div>
             </div>
 
-
-            <button type="button" class="btn btn-lg btn-block btn-primary">
+            <button type="button" class="btn btn-lg btn-block btn-success" @click="addToCart(element.id)">
                 Add to cart
             </button>
         </div>
@@ -39,6 +38,13 @@
 
 <script>
     export default {
-        props: ['element']
+        props: ['element'],
+        data() {
+            return {
+
+            }
+        },
+        methods: {
+        }
     }
 </script>

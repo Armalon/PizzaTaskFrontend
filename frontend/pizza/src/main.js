@@ -13,13 +13,24 @@ import Contacts from "./components/Contacts";
 Vue.config.productionTip = false
 
 Vue.mixin({
+    methods: {
+        addToCart(id) {
+            this.setToCart(id, 1)
+        },
+        setToCart(id, quantity) {
+            this.$store.dispatch('setToCart', { id, quantity })
+        }
+    },
     computed: {
         iAmAuthorized() {
             return this.$store.getters.iAmAuthorized;
         },
         username() {
             return this.iAmAuthorized && this.iAmAuthorized.name ? this.iAmAuthorized.name : null
-        }
+        },
+        cartGlobal() {
+            return this.$store.getters.getCart;
+        },
     },
     filters: {
         capitalize: function (value) {
