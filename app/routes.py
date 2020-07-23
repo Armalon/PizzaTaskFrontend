@@ -150,6 +150,21 @@ def make_order():
     return result
 
 
+@app.route('/my_orders')
+def my_orders():
+    result = {
+        'error': 1,
+        'orders_list': None
+    }
+    if 'user_id' not in session:
+        return result
+
+    result['error'] = 0
+    result['orders_list'] = [order.to_dict() for order in Order.get_my_orders(session['user_id'])]
+
+    return result
+
+
 @app.route('/service_info')
 def service_info():
     return {

@@ -66,6 +66,10 @@ class Order(db.Model):
     # denormalization total_price
     # denormalization bonuses_earned
 
+    @staticmethod
+    def get_my_orders(user_id):
+        return Order.query.filter_by(user_id=user_id).all()
+
     def __repr__(self):
         return f'<Order #{self.id}>'
 
