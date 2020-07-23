@@ -88,10 +88,12 @@ def menu():
 
 
 @app.route('/service_info')
-def menu():
+def service_info():
     return {
-        'delivery_price': 4,
-        'usd_to_eur_multiplier': 1.16,
+        'info': {
+            'delivery_price': 4,
+            'usd_to_eur_multiplier': 1.16,
+        },
         'error': 0
     }
 
