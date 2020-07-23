@@ -9,8 +9,8 @@
                     Cart
                 </span>
                 <ul class="list-unstyled card-text">
-                    <li class="text-nowrap">items ... 1</li>
-                    <li class="text-nowrap">total price ... $100</li>
+                    <li class="text-nowrap">items ... {{ totalItems }}</li>
+                    <li class="text-nowrap">total price ... ${{ totalPrice }}</li>
                 </ul>
             </a>
         </div>
@@ -19,6 +19,21 @@
 
 <script>
     export default {
-
+        computed: {
+            totalItems() {
+                let totalItems = 0
+                for (let i in this.cartGlobal) {
+                    totalItems += this.cartGlobal[i].quantity
+                }
+                return totalItems
+            },
+            totalPrice() {
+                let totalPrice = 0
+                for (let i in this.cartGlobal) {
+                    totalPrice += this.cartGlobal[i].quantity * this.cartGlobal[i].element.price
+                }
+                return totalPrice
+            }
+        }
     }
 </script>
