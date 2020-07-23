@@ -12,7 +12,8 @@ const vuexPersist = new VuexPersistence({
 
 const state = {
     iAmAuthorized: null, // null or user data
-    cart: [] // { id: 123, quantity: 2 }
+    cart: [], // { id: 123, quantity: 2 }
+    serviceInfo: null
 }
 
 const mutations = {
@@ -32,6 +33,9 @@ const mutations = {
                 state.cart.splice(foundElIndex, 1)
             }
         }
+    },
+    'SET_SERVICE_INFO' (state, info) {
+        state.serviceInfo = info
     }
 }
 
@@ -52,6 +56,9 @@ const actions = {
             commit('SET_TO_CART', { id, quantity: - state.cart[foundElIndex].quantity })
         }
     },
+    setServiceInfo: ({ commit }, info)  => {
+        commit('SET_SERVICE_INFO', info)
+    }
 }
 
 const getters = {

@@ -31,6 +31,21 @@
             Currencies,
             Cart,
             Login
+        },
+        methods: {
+            getServiceInfo() {
+                this.axios.get('http://localhost:5000/service_info', { withCredentials: true }).then((response) => {
+                    if (response.data
+                        && !response.data.error
+                        && response.data.info) {
+
+                        this.$store.dispatch('setServiceInfo', response.data.info);
+                    }
+                })
+            },
+        },
+        created() {
+            this.getServiceInfo()
         }
     }
 </script>
