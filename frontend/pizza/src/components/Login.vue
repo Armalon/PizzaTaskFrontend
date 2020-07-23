@@ -18,7 +18,7 @@
                     title="">Sign out</button>
 
             <div class="alert alert-success" role="alert">
-                Hello, <b><i>{{ username }}</i></b>
+                Hello, <b><i>{{ userName }}</i></b>
             </div>
         </div>
     </div>

@@ -29,8 +29,14 @@ Vue.mixin({
         iAmAuthorized() {
             return this.$store.getters.iAmAuthorized;
         },
-        username() {
+        userName() {
             return this.iAmAuthorized && this.iAmAuthorized.name ? this.iAmAuthorized.name : null
+        },
+        userPhone() {
+            return this.iAmAuthorized && this.iAmAuthorized.phone ? this.iAmAuthorized.phone : null
+        },
+        userAddress() {
+            return this.iAmAuthorized && this.iAmAuthorized.address ? this.iAmAuthorized.address : null
         },
         cartGlobal() {
             return this.$store.getters.getCart;

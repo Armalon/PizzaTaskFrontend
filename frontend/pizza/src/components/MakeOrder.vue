@@ -59,7 +59,7 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">Your cellphone number</label>
-                        <input v-model="phone" type="text" class="form-control" name="phone" id="phone" required>
+                        <input v-model="phone" type="text" class="form-control" name="phone" id="phone" required :readonly="userPhone">
                         <small class="form-text text-muted">
                             Our operator will call you to confirm your order details.
                         </small>
@@ -121,6 +121,19 @@
                         }
                     }
                 })
+            },
+            refreshUserDataFromSession() {
+                this.name = !this.name ? this.userName : this.name
+                this.phone = this.userPhone
+                this.address = !this.address ? this.userAddress : this.address
+            }
+        },
+        created() {
+            this.refreshUserDataFromSession()
+        },
+        watch: {
+            userPhone() {
+                this.refreshUserDataFromSession()
             }
         },
         components: {
