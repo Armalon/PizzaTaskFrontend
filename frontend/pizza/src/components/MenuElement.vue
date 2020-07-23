@@ -14,6 +14,7 @@
 
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Souse base: {{ element.base | capitalize}}</li>
+                <li class="list-group-item">Pizza Crust: {{ element.crust | capitalize}}</li>
                 <li class="list-group-item">Size: {{ element.size | capitalize }}</li>
                 <li class="list-group-item">Weight: {{ element.weight }} gram</li>
             </ul>
