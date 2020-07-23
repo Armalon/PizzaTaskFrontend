@@ -2,7 +2,7 @@ from app import app, session, request, db
 
 import sqlite3
 
-from app.models import User, Product, ProductOrder, Order
+from app.models import User, Product, ProductOrder, Order, OrderStatus
 
 from config import SERVICE_INFO
 
@@ -151,6 +151,7 @@ def make_order():
         po = ProductOrder(product=p, quantity=order_product['quantity'], order=o)
         db.session.add(po)
 
+    o.status = OrderStatus.ORDERED
     db.session.add(o)
     db.session.commit()
 
