@@ -82,6 +82,16 @@ def menu():
     products = [v.to_dict() for v in products]
 
     return {
+        'error': 0,
         'products': products
+    }
+
+
+@app.route('/service_info')
+def menu():
+    return {
+        'delivery_price': 4,
+        'usd_to_eur_multiplier': 1.16,
+        'error': 0
     }
 
