@@ -34,7 +34,7 @@ def login():
         result['user'] = {
             'id': session['user_id'],
             'name': session['user_name'],
-            'phone': session['phone'],
+            'phone': session['user_phone'],
         }
     else:
         try:
@@ -48,11 +48,12 @@ def login():
         if random_user is not None:
             result['user'] = {
                 'id': random_user.id,
-                'name': random_user.username
+                'name': random_user.username,
+                'phone': random_user.phone
             }
             session['user_id'] = random_user.id
             session['user_name'] = random_user.username
-            session['phone'] = random_user.phone
+            session['user_phone'] = random_user.phone
         else:
             result['error'] = 1
     return result
@@ -69,7 +70,7 @@ def logout():
     """
     session.pop('user_id', None)
     session.pop('user_name', None)
-    session.pop('phone', None)
+    session.pop('user_phone', None)
     return {
         'error': 0
     }
@@ -103,8 +104,8 @@ def make_order():
             or request.get_json().get('address') is None:
         return result
 
-    if 'user_id' in session:
-        user = session
+    if 'user_id' in session and session['user_name'] == request.get_json().get('name'):
+        pass
     else:
         user = User.load_user_by_phone(request.get_json().get('phone'))
         if user is None:
@@ -114,9 +115,16 @@ def make_order():
 
         session['user_id'] = user.id
         session['user_name'] = user.username
-        session['phone'] = user.phone
+        session['user_phone'] = user.phone
 
-    o = Order(user_id=user.id)
+    user_result = {
+        'id': session['user_id'],
+        'name': session['user_name'],
+        'phone': session['user_phone']
+    }
+    result['user'] = user_result
+
+    o = Order(user_id=user_result['id'])
     db.session.add(o)
 
     order_products = request.get_json().get('order')

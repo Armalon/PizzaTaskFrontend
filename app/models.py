@@ -32,6 +32,13 @@ class User(db.Model):
     def load_user_by_phone(phone):
         return User.query.filter_by(phone=phone).first()
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'phone': self.phone,
+        }
+
     def __repr__(self):
         return '<User {}>'.format(self.username)
 

@@ -89,6 +89,11 @@
                 const formData = {
                     // getting rid of element field
                     order: this.cartGlobal.map(el => { let element; ({ element, ...el } = el); element; return el }),
+                    // [
+                    //     {
+                    //         id, quantity
+                    //     }
+                    // ],
                     name: this.name,
                     phone: this.phone,
                     address: this.address,
@@ -97,10 +102,13 @@
 
                 this.axios.post('http://localhost:5000/make_order', formData,{ withCredentials: true }).then((response) => {
                     console.log('response', response);
-                    
+
                     if (response.data
                         && !response.data.error) {
 
+                        if (response.data.user) {
+                            this.$store.dispatch('setIAmAuthorized', response.data.user);
+                        }
                     }
                 })
             }
