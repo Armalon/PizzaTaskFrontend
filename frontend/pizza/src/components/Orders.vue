@@ -62,6 +62,11 @@
                 })
             }
         },
+        watch: {
+            iAmAuthorized() {
+                this.initOrdersList()
+            }
+        },
         created() {
             this.initOrdersList()
         },
