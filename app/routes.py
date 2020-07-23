@@ -35,6 +35,7 @@ def login():
             'id': session['user_id'],
             'name': session['user_name'],
             'phone': session['user_phone'],
+            'address': session['user_address'],
         }
     else:
         try:
@@ -49,11 +50,13 @@ def login():
             result['user'] = {
                 'id': random_user.id,
                 'name': random_user.username,
-                'phone': random_user.phone
+                'phone': random_user.phone,
+                'address': random_user.address,
             }
             session['user_id'] = random_user.id
             session['user_name'] = random_user.username
             session['user_phone'] = random_user.phone
+            session['user_address'] = random_user.address
         else:
             result['error'] = 1
     return result
@@ -71,6 +74,7 @@ def logout():
     session.pop('user_id', None)
     session.pop('user_name', None)
     session.pop('user_phone', None)
+    session.pop('user_address', None)
     return {
         'error': 0
     }
@@ -116,11 +120,13 @@ def make_order():
         session['user_id'] = user.id
         session['user_name'] = user.username
         session['user_phone'] = user.phone
+        session['user_address'] = user.address
 
     user_result = {
         'id': session['user_id'],
         'name': session['user_name'],
-        'phone': session['user_phone']
+        'phone': session['user_phone'],
+        'address': session['user_address']
     }
     result['user'] = user_result
 
