@@ -19,10 +19,10 @@ const mutations = {
     'SET_I_AM_AUTHORIZED' (state, user) {
         state.iAmAuthorized = user;
     },
-    'SET_TO_CART' (state, { id, quantity }) {
+    'SET_TO_CART' (state, { id, element, quantity }) {
         let foundElIndex = state.cart.findIndex(el => el.id === id)
         if (foundElIndex === -1) {
-            state.cart.push({ id, quantity })
+            state.cart.push({ id, element, quantity })
         } else {
             state.cart[foundElIndex].quantity += quantity
         }
@@ -34,11 +34,11 @@ const actions = {
         commit('SET_I_AM_AUTHORIZED', user);
     },
     // quantity can be negative
-    setToCart: ({ commit }, { id, quantity }) => {
+    setToCart: ({ commit }, { id, element, quantity }) => {
         if (typeof quantity === 'undefined') {
             quantity = 1
         }
-        commit('SET_TO_CART', { id, quantity })
+        commit('SET_TO_CART', { id, element, quantity })
     },
     removeFromCart: ({ commit, state }, { id }) => {
         if (state.cart[id]) {

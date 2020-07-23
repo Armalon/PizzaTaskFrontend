@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            <button type="button" class="btn btn-lg btn-block btn-success" @click="addToCart(element.id)">
+            <button type="button" class="btn btn-lg btn-block btn-success" @click="addToCart(element)">
                 Add to cart
             </button>
         </div>

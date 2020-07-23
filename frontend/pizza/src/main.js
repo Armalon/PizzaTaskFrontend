@@ -14,11 +14,11 @@ Vue.config.productionTip = false
 
 Vue.mixin({
     methods: {
-        addToCart(id) {
-            this.setToCart(id, 1)
+        addToCart(element) {
+            this.setToCart(element.id, element)
         },
-        setToCart(id, quantity) {
-            this.$store.dispatch('setToCart', { id, quantity })
+        setToCart(id, element, quantity) {
+            this.$store.dispatch('setToCart', { id, element, quantity })
         }
     },
     computed: {
