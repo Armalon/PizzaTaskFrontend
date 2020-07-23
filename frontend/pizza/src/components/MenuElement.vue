@@ -19,13 +19,13 @@
             </ul>
         </div>
         <div class="card-footer">
-            <div class="input-group mb-3">
+             <div v-if="isInTheCart" class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <button class="btn btn-success">-</button>
+                    <button class="btn btn-success" @click="setToCart(element.id, element, -1)">-</button>
                 </div>
-                <input class="form-control" type="number" readonly>
+                <input class="form-control text-center" type="number" readonly :value="isInTheCart">
                 <div class="input-group-append">
-                    <button class="btn btn-success">+</button>
+                    <button class="btn btn-success" @click="addToCart(element)">+</button>
                 </div>
             </div>
 
