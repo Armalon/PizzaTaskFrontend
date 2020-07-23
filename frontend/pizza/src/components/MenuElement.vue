@@ -34,7 +34,7 @@
             </button>
 
             <button v-if="isInTheCart" type="button" class="btn btn-lg btn-block btn-warning" @click="removeFromCart(element)">
-                Remove from cart
+                Remove
             </button>
         </div>
     </div>
