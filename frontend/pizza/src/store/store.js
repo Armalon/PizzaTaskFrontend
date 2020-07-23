@@ -22,9 +22,15 @@ const mutations = {
     'SET_TO_CART' (state, { id, element, quantity }) {
         let foundElIndex = state.cart.findIndex(el => el.id === id)
         if (foundElIndex === -1) {
-            state.cart.push({ id, element, quantity })
+            if (quantity) {
+                state.cart.push({id, element, quantity})
+            }
         } else {
             state.cart[foundElIndex].quantity += quantity
+
+            if (!state.cart[foundElIndex].quantity) {
+                state.cart.splice(foundElIndex, 1)
+            }
         }
     }
 }
@@ -41,8 +47,9 @@ const actions = {
         commit('SET_TO_CART', { id, element, quantity })
     },
     removeFromCart: ({ commit, state }, { id }) => {
-        if (state.cart[id]) {
-            commit('SET_TO_CART', { id, quantity: state.cart[id].quantity })
+        let foundElIndex = state.cart.findIndex(el => el.id === id)
+        if (foundElIndex !== -1) {
+            commit('SET_TO_CART', { id, quantity: - state.cart[foundElIndex].quantity })
         }
     },
 }
@@ -53,6 +60,10 @@ const getters = {
     },
     getCart: state => {
         return state.cart
+    },
+    isInTheCart: (state) => (id) => {
+        let foundElIndex = state.cart.findIndex(el => el.id === id)
+        return foundElIndex !== -1 && state.cart[foundElIndex].quantity
     },
 }
 

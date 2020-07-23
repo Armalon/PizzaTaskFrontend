@@ -15,7 +15,10 @@ Vue.config.productionTip = false
 Vue.mixin({
     methods: {
         addToCart(element) {
-            this.setToCart(element.id, element)
+            this.setToCart(element.id, element, 1)
+        },
+        removeFromCart(element) {
+            this.$store.dispatch('removeFromCart', { id: element.id })
         },
         setToCart(id, element, quantity) {
             this.$store.dispatch('setToCart', { id, element, quantity })

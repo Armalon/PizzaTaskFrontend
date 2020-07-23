@@ -29,8 +29,12 @@
                 </div>
             </div>
 
-            <button type="button" class="btn btn-lg btn-block btn-success" @click="addToCart(element)">
+            <button v-if="!isInTheCart" type="button" class="btn btn-lg btn-block btn-success" @click="addToCart(element)">
                 Add to cart
+            </button>
+
+            <button v-if="isInTheCart" type="button" class="btn btn-lg btn-block btn-warning" @click="removeFromCart(element)">
+                Remove from cart
             </button>
         </div>
     </div>
@@ -45,6 +49,11 @@
             }
         },
         methods: {
+        },
+        computed: {
+            isInTheCart() {
+                return this.$store.getters.isInTheCart(this.element.id)
+            }
         }
     }
 </script>
