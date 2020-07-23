@@ -27,16 +27,6 @@
 <script>
     export default {
         methods: {
-            authorizeMe() {
-                this.axios.get('http://localhost:5000/login', { withCredentials: true }).then((response) => {
-                    if (response.data
-                        && !response.data.error
-                        && response.data.user) {
-
-                        this.$store.dispatch('setIAmAuthorized', response.data.user);
-                    }
-                })
-            },
             loggingMeOut() {
                 this.axios.get('http://localhost:5000/logout', { withCredentials: true }).then((response) => {
                     if (response.data

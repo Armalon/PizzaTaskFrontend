@@ -42,6 +42,9 @@
         },
         created() {
             this.getServiceInfo()
+            if (this.iAmAuthorized) {
+                this.authorizeMe(null, this.iAmAuthorized.id)
+            }
         }
     }
 </script>

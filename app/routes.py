@@ -12,7 +12,7 @@ def index():
     return "Hello, World!"
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     """
     Checking if user is authorized and authorizing if not (as a random user)
@@ -39,25 +39,30 @@ def login():
             'address': session['user_address'],
         }
     else:
-        try:
-            random_user = User.load_random_user()
-        # todo: Catch a sqlalchemy error instead
-        except sqlite3.Error as ex:
-            result['error'] = 2
-            # or raise further maybe
-            return result
+        user = None
+        if request.get_json().get('user_id') is not None:
+            user = User.load_user(int(request.get_json().get('user_id')))
 
-        if random_user is not None:
+        if user is None:
+            try:
+                user = User.load_random_user()
+            # todo: Catch a sqlalchemy error instead
+            except sqlite3.Error as ex:
+                result['error'] = 2
+                # or raise further maybe
+                return result
+
+        if user is not None:
             result['user'] = {
-                'id': random_user.id,
-                'name': random_user.username,
-                'phone': random_user.phone,
-                'address': random_user.address,
+                'id': user.id,
+                'name': user.username,
+                'phone': user.phone,
+                'address': user.address,
             }
-            session['user_id'] = random_user.id
-            session['user_name'] = random_user.username
-            session['user_phone'] = random_user.phone
-            session['user_address'] = random_user.address
+            session['user_id'] = user.id
+            session['user_name'] = user.username
+            session['user_phone'] = user.phone
+            session['user_address'] = user.address
         else:
             result['error'] = 1
     return result

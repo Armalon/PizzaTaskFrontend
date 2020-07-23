@@ -24,7 +24,17 @@ Vue.mixin({
         },
         setToCart(id, element, quantity) {
             this.$store.dispatch('setToCart', { id, element, quantity })
-        }
+        },
+        authorizeMe(event, userId) {
+            this.axios.post('http://localhost:5000/login', { user_id: userId }, { withCredentials: true }).then((response) => {
+                if (response.data
+                    && !response.data.error
+                    && response.data.user) {
+
+                    this.$store.dispatch('setIAmAuthorized', response.data.user);
+                }
+            })
+        },
     },
     computed: {
         iAmAuthorized() {
