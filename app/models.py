@@ -43,6 +43,13 @@ class User(db.Model):
         return '<User {}>'.format(self.username)
 
 
+class OrderStatus(enum.Enum):
+    ORDERED = 'ORDERED'
+    CONFIRMED = 'CONFIRMED'
+    READY = 'READY'
+    DELIVERED = 'DELIVERED'
+
+
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -52,6 +59,8 @@ class Order(db.Model):
     username = db.Column(db.String(64))
     address = db.Column(db.String(256))
     phone = db.Column(db.String(20))
+
+    status = db.Column(db.Enum(OrderStatus))
 
     # state enum(ordered, confirmed, cooked, delivered)
     # denormalization total_price
