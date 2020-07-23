@@ -104,8 +104,7 @@ def make_order():
         return result
 
     if 'user_id' in session:
-        user_id = session['user_id']
-        phone = session['phone']
+        user = session
     else:
         user = User.load_user_by_phone(request.get_json().get('phone'))
         if user is None:
