@@ -9,6 +9,8 @@
         <div class="container">
             <span class="h3" v-if="orderPlaced">
                 Thank you! Your order has been placed, please wait for our manager to contact you for confirmation.
+                <br>
+                You can check it's status in a <router-link :to="{ name: 'orders'}">orders list</router-link>
             </span>
 
             <table class="table" v-if="totalCartItems">
@@ -49,17 +51,17 @@
                 There is no products in your cart, please <router-link :to="{name: 'home'}">check our Menu</router-link>
             </span>
 
-            <div class="my-4 py-2">
+            <div class="my-4 py-2" v-if="totalCartItems">
                 <h2>Complete your order</h2>
 
-                <form @submit.prevent="submitForm" autocomplete="off" v-if="totalCartItems">
+                <form @submit.prevent="submitForm" autocomplete="off">
                     <div class="form-group">
                         <label for="name">Your Name</label>
                         <input v-model="name" type="text" class="form-control" id="name" required>
                     </div>
                     <div class="form-group">
                         <label for="phone">Your cellphone number</label>
-                        <input v-model="phone" type="text" class="form-control" name="phone" id="phone" required :readonly="userPhone">
+                        <input v-model="phone" type="number" class="form-control" name="phone" id="phone" required :readonly="userPhone">
                         <small class="form-text text-muted">
                             Our operator will call you to confirm your order details.
                         </small>
@@ -106,7 +108,7 @@
                 };
 
                 this.axios.post('http://localhost:5000/make_order', formData,{ withCredentials: true }).then((response) => {
-                    console.log('response', response);
+                    // console.log('response', response);
 
                     if (response.data
                         && !response.data.error) {
