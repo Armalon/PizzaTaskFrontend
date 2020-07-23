@@ -83,6 +83,9 @@ class Order(db.Model):
             'user_name': self.username,
             'address': self.address,
             'phone': self.phone,
+
+            'status': self.status.value if self.status != None else '',
+            'total_price': self.total_price,
         }
 
 

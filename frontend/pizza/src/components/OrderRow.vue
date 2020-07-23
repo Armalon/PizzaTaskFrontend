@@ -1,13 +1,21 @@
 <template>
     <tr>
-        {{ element }}
         <th scope="row">{{ element.id }}</th>
-        <td>{{ element.name }}</td>
+        <td>{{ element.user_name }}</td>
         <td>
+            {{ element.address }}
         </td>
         <td>
+            {{ element.phone }}
         </td>
         <td>
+            [create date]
+        </td>
+        <td>
+            {{ element.status }}
+        </td>
+        <td>
+            ${{ element.total_price }}
         </td>
     </tr>
 </template>
