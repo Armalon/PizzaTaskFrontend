@@ -84,7 +84,7 @@ class Order(db.Model):
             'address': self.address,
             'phone': self.phone,
 
-            'status': self.status.value if self.status != None else '',
+            'status': self.status.value if self.status is not None else '',
             'total_price': self.total_price,
         }
 
