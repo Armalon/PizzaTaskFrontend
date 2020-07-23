@@ -49,7 +49,7 @@ class Order(db.Model):
         return {
             'id': self.id,
             'user_id': self.user_id,
-            # 'products': self.products.all(),
+            'product_orders': [product_order.to_dict() for product_order in self.products.all()],
         }
 
 
@@ -59,6 +59,12 @@ class ProductOrder(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     quantity = db.Column(db.Integer)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
+
+    def to_dict(self):
+        return {
+            'quantity': self.quantity,
+            'product': self.product.to_dict()
+        }
 
 
 class ProductType(enum.Enum):
