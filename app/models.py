@@ -45,6 +45,13 @@ class Order(db.Model):
         return f'<Order #{self.id}>'
 
 
+class ProductOrder(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    product = db.relationship('Product')
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    quantity = db.Column(db.Integer)
+
+
 class ProductType(enum.Enum):
     PIZZA = 'PIZZA'
     DRINK = 'DRINK'
