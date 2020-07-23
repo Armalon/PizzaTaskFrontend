@@ -23,6 +23,22 @@
                             :element="cartElement.element"
                             :cartElement="cartElement"
                             :key="cartElement.element.id"></cart-row>
+
+                    <tr v-if="deliveryPrice">
+                        <th>Delivery price</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>${{ deliveryPrice }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Total price</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>${{ totalCartPrice + (deliveryPrice ? deliveryPrice : 0) }}</td>
+                    </tr>
                 </tbody>
             </table>
             <span class="h3" v-if="!totalCartItems">

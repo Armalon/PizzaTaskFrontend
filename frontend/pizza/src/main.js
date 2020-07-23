@@ -48,7 +48,10 @@ Vue.mixin({
                 totalPrice += this.cartGlobal[i].quantity * this.cartGlobal[i].element.price
             }
             return totalPrice
-        }
+        },
+        deliveryPrice() {
+            return this.$store.getters.deliveryPrice;
+        },
     },
     filters: {
         capitalize: function (value) {

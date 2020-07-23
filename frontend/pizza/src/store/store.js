@@ -72,6 +72,9 @@ const getters = {
         let foundElIndex = state.cart.findIndex(el => el.id === id)
         return foundElIndex !== -1 && state.cart[foundElIndex].quantity
     },
+    deliveryPrice: (state) => {
+        return state.serviceInfo ? state.serviceInfo.delivery_price : null
+    }
 }
 
 export const store = new Vuex.Store({
