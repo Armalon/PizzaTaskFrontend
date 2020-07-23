@@ -38,6 +38,10 @@ class Order(db.Model):
     create_timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     products = db.relationship('ProductOrder', backref='order', lazy='dynamic')
 
+    username = db.Column(db.String(64))
+    address = db.Column(db.String(256))
+    phone = db.Column(db.String(20))
+
     # state enum(ordered, confirmed, cooked, delivered)
     # denormalization total_price
     # denormalization bonuses_earned
