@@ -13,8 +13,9 @@
             </p>
 
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Weight: {{ element.weight }} gramm</li>
-                <li class="list-group-item">Size: {{ element.size }}</li>
+                <li class="list-group-item">Souse base: {{ element.base | capitalize}}</li>
+                <li class="list-group-item">Size: {{ element.size | capitalize }}</li>
+                <li class="list-group-item">Weight: {{ element.weight }} gram</li>
             </ul>
         </div>
         <div class="card-footer">
