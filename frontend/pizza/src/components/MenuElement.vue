@@ -1,6 +1,6 @@
 <template>
     <div class="card mb-4 shadow-sm">
-        <img src="../assets/portato.jpg" class="card-img-top" alt="...">
+        <img src="../assets/pizza/portato.jpg" class="card-img-top" alt="...">
         <div class="card-header">
             <h4 class="my-0 font-weight-normal">{{ element.name }}</h4>
         </div>
