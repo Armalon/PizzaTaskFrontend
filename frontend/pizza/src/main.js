@@ -9,6 +9,7 @@ import VueRouter from 'vue-router'
 
 import Home from "./components/Home";
 import Contacts from "./components/Contacts";
+import MakeOrder from "./components/MakeOrder";
 
 Vue.config.productionTip = false
 
@@ -58,6 +59,11 @@ const routes = [
         name: 'contacts',
         path: '/contacts',
         component: Contacts,
+    },
+    {
+        name: 'cart',
+        path: '/cart',
+        component: MakeOrder,
     },
 ];
 
