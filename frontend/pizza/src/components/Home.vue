@@ -8,6 +8,7 @@
         </div>
 
         <div class="container">
+            <span class="h3">Search filters</span>
             <search-filters
                     @souseBaseChange="souseBaseChange($event)"
                     @pizzaCrustChange="pizzaCrustChange($event)"></search-filters>

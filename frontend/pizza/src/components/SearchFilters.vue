@@ -12,7 +12,7 @@
                     <input type="radio" v-model="souse_base" name="souse_base" value="red"> Red tomato
                 </label>
                 <label class="btn btn-light" :class="{ active: souse_base === 'white', 'font-weight-bold': souse_base === 'white' }">
-                    <input type="radio" v-model="souse_base" name="souse_base" value="white"> White with garlic
+                    <input type="radio" v-model="souse_base" name="souse_base" value="white"> White
                 </label>
             </div>
 
