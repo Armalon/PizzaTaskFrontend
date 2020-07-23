@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <th scope="row">1</th>
+        <th scope="row">{{ element.id }}</th>
         <td>{{ element.name }}</td>
         <td>
             <div class="input-group mb-3 col-md-6 col-sm-12">
