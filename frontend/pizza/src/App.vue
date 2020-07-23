@@ -7,8 +7,6 @@
 
             <login></login>
 
-            <currencies></currencies>
-
             <cart></cart>
         </div>
 
@@ -19,7 +17,6 @@
 <script>
     import Logo from './components/Logo.vue'
     import Navigation from "./components/Navigation"
-    import Currencies from './components/Currencies'
     import Cart from "./components/Cart";
     import Login from "./components/Login";
 
@@ -28,7 +25,6 @@
         components: {
             Logo,
             Navigation,
-            Currencies,
             Cart,
             Login
         },
