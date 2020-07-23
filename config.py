@@ -15,3 +15,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+SERVICE_INFO = {
+    'delivery_price': 4,
+    'usd_to_eur_multiplier': 1.16,
+}

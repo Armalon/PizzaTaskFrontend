@@ -4,6 +4,7 @@ import sqlite3
 
 from app.models import User, Product, ProductOrder, Order
 
+from config import SERVICE_INFO
 
 @app.route('/')
 @app.route('/index')
@@ -111,6 +112,7 @@ def make_order():
     if 'user_id' in session and session['user_name'] == request.get_json().get('name'):
         pass
     else:
+        # Registering a new user using provided name and address
         user = User.load_user_by_phone(request.get_json().get('phone'))
         if user is None:
             user = User(username=request.get_json().get('name'), address=request.get_json().get('address'), phone=request.get_json().get('phone'))
@@ -130,8 +132,12 @@ def make_order():
     }
     result['user'] = user_result
 
-    o = Order(user_id=user_result['id'])
-    db.session.add(o)
+    o = Order(user_id=user_result['id'],
+              username=request.get_json().get('name'),
+              address=request.get_json().get('address'),
+              phone=request.get_json().get('phone'))
+
+    o.total_price = SERVICE_INFO['delivery_price']
 
     order_products = request.get_json().get('order')
     for order_product in order_products:
@@ -140,9 +146,12 @@ def make_order():
             result.error = 2
             return result
 
+        o.total_price += order_product['quantity'] * p.price
+
         po = ProductOrder(product=p, quantity=order_product['quantity'], order=o)
         db.session.add(po)
 
+    db.session.add(o)
     db.session.commit()
 
     result['error'] = 0
@@ -168,10 +177,7 @@ def my_orders():
 @app.route('/service_info')
 def service_info():
     return {
-        'info': {
-            'delivery_price': 4,
-            'usd_to_eur_multiplier': 1.16,
-        },
+        'info': SERVICE_INFO,
         'error': 0
     }
 
