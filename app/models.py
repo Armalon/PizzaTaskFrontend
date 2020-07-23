@@ -61,6 +61,7 @@ class Order(db.Model):
     phone = db.Column(db.String(20))
 
     status = db.Column(db.Enum(OrderStatus))
+    total_price = db.Column(db.Integer)
 
     # state enum(ordered, confirmed, cooked, delivered)
     # denormalization total_price
@@ -78,6 +79,10 @@ class Order(db.Model):
             'id': self.id,
             'user_id': self.user_id,
             'product_orders': [product_order.to_dict() for product_order in self.products.all()],
+
+            'user_name': self.username,
+            'address': self.address,
+            'phone': self.phone,
         }
 
 
