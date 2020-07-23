@@ -45,6 +45,13 @@ class Order(db.Model):
     def __repr__(self):
         return f'<Order #{self.id}>'
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            # 'products': self.products.all(),
+        }
+
 
 class ProductOrder(db.Model):
     id = db.Column(db.Integer, primary_key=True)

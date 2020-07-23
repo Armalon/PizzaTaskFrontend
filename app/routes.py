@@ -1,8 +1,8 @@
-from app import app, session, request
+from app import app, session, request, db
 
 import sqlite3
 
-from app.models import User, Product
+from app.models import User, Product, ProductOrder, Order
 
 
 @app.route('/')
@@ -85,6 +85,39 @@ def menu():
         'error': 0,
         'products': products
     }
+
+
+@app.route('/make_order', methods=['POST'])
+def make_order():
+    result = {
+        'error': 1,
+        'order': None
+    }
+
+    if request.get_json().get('order') is None\
+            or request.get_json().get('name') is None\
+            or request.get_json().get('phone') is None\
+            or request.get_json().get('address') is None:
+        return result
+
+    o = Order(user_id=(session['user_id'] if 'user_id' in session else None))
+    db.session.add(o)
+
+    order_products = request.get_json().get('order')
+    for order_product in order_products:
+        p = Product.query.get(order_product['id'])
+        if p is None or order_product['quantity'] is None:
+            result.error = 2
+            return result
+
+        po = ProductOrder(product=p, quantity=order_product['quantity'], order=o)
+        db.session.add(po)
+
+    db.session.commit()
+
+    result['error'] = 0
+    result['order'] = o.to_dict()
+    return result
 
 
 @app.route('/service_info')
