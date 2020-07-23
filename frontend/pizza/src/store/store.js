@@ -36,6 +36,9 @@ const mutations = {
     },
     'SET_SERVICE_INFO' (state, info) {
         state.serviceInfo = info
+    },
+    'CLEAR_CART' (state) {
+        state.cart = []
     }
 }
 
@@ -55,6 +58,9 @@ const actions = {
         if (foundElIndex !== -1) {
             commit('SET_TO_CART', { id, quantity: - state.cart[foundElIndex].quantity })
         }
+    },
+    clearCart: ({ commit }) => {
+        commit('CLEAR_CART')
     },
     setServiceInfo: ({ commit }, info)  => {
         commit('SET_SERVICE_INFO', info)

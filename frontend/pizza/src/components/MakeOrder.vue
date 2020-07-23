@@ -7,6 +7,10 @@
         </div>
 
         <div class="container">
+            <span class="h3" v-if="orderPlaced">
+                Thank you! Your order has been placed, please wait for our manager to contact you for confirmation.
+            </span>
+
             <table class="table" v-if="totalCartItems">
                 <thead>
                     <tr class="">
@@ -41,7 +45,7 @@
                     </tr>
                 </tbody>
             </table>
-            <span class="h3" v-if="!totalCartItems">
+            <span class="h3" v-if="!totalCartItems && !orderPlaced">
                 There is no products in your cart, please <router-link :to="{name: 'home'}">check our Menu</router-link>
             </span>
 
@@ -81,7 +85,8 @@
             return {
                 name: '',
                 phone: '',
-                address: ''
+                address: '',
+                orderPlaced: false
             }
         },
         methods: {
@@ -108,6 +113,11 @@
 
                         if (response.data.user) {
                             this.$store.dispatch('setIAmAuthorized', response.data.user);
+                        }
+
+                        if (response.data.order) {
+                            this.orderPlaced = true
+                            this.$store.dispatch('clearCart')
                         }
                     }
                 })
