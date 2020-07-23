@@ -44,6 +44,30 @@
             <span class="h3" v-if="!totalCartItems">
                 There is no products in your cart, please <router-link :to="{name: 'home'}">check our Menu</router-link>
             </span>
+
+            <div class="my-4 py-2">
+                <h2>Complete your order</h2>
+
+                <form @submit.prevent="submitForm" autocomplete="off" v-if="totalCartItems">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input v-model="name" type="text" class="form-control" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Your cellphone number</label>
+                        <input v-model="phone" type="text" class="form-control" name="phone" id="phone" required>
+                        <small class="form-text text-muted">
+                            Our operator will call you to confirm your order details.
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">A delivery address</label>
+                        <textarea v-model="address" class="form-control" id="address" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Process order</button>
+                </form>
+            </div>
         </div>
     </div>
 </template>
@@ -53,6 +77,29 @@
     import CartRow from "./CartRow";
 
     export default {
+        data() {
+            return {
+                name: '',
+                phone: '',
+                address: ''
+            }
+        },
+        methods: {
+            submitForm() {
+                const formData = {
+                    // ...
+                };
+
+                this.axios.post('http://localhost:5000/make_order', formData,{ withCredentials: true }).then((response) => {
+                    console.log('response', response);
+                    
+                    if (response.data
+                        && !response.data.error) {
+
+                    }
+                })
+            }
+        },
         components: {
             CartRow
         }
