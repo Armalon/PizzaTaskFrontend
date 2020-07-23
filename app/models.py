@@ -28,6 +28,10 @@ class User(db.Model):
     def load_user(user_id):
         return User.query.get(int(user_id))
 
+    @staticmethod
+    def load_user_by_phone(phone):
+        return User.query.filter_by(phone=phone).first()
+
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
