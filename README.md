@@ -1,3 +1,0 @@
-# ThePizzaTask
-
-ReadME here
