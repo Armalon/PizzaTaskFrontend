@@ -40,7 +40,8 @@ def login():
         }
     else:
         user = None
-        if request.get_json().get('user_id') is not None:
+        if request.get_json() is not None \
+                and request.get_json().get('user_id') is not None:
             user = User.load_user(int(request.get_json().get('user_id')))
 
         if user is None:
@@ -108,7 +109,8 @@ def make_order():
         'order': None
     }
 
-    if request.get_json().get('order') is None\
+    if request.get_json() is None or\
+            request.get_json().get('order') is None\
             or request.get_json().get('name') is None\
             or request.get_json().get('phone') is None\
             or request.get_json().get('address') is None:
