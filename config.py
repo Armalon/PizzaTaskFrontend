@@ -19,3 +19,9 @@ SERVICE_INFO = {
     'delivery_price': 4,
     'usd_to_eur_multiplier': 1.16,
 }
+
+ORDER_STATUS_EXPIRATION = {
+    'CONFIRMED_AFTER': 1 * 60,
+    'READY_AFTER': 2 * 60,
+    'DELIVERED_AFTER': 3 * 60,
+}

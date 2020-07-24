@@ -1,10 +1,10 @@
 from app import app, session, request, db
-
+from datetime import datetime
 import sqlite3
 
 from app.models import User, Product, ProductOrder, Order, OrderStatus
 
-from config import SERVICE_INFO
+from config import SERVICE_INFO, ORDER_STATUS_EXPIRATION
 
 @app.route('/')
 @app.route('/index')
@@ -175,7 +175,20 @@ def my_orders():
         return result
 
     result['error'] = 0
-    result['orders_list'] = [order.to_dict() for order in Order.get_my_orders(session['user_id'])]
+    orders_list = Order.get_my_orders(session['user_id'])
+    for order in orders_list:
+        now = datetime.utcnow().timestamp()
+        create_timestamp = order.create_timestamp.timestamp()
+        if now - create_timestamp  > ORDER_STATUS_EXPIRATION['DELIVERED_AFTER']:
+            order.status = OrderStatus.DELIVERED
+        elif now - create_timestamp > ORDER_STATUS_EXPIRATION['READY_AFTER']:
+            order.status = OrderStatus.READY
+        elif now - create_timestamp > ORDER_STATUS_EXPIRATION['CONFIRMED_AFTER']:
+            order.status = OrderStatus.CONFIRMED
+
+        db.session.commit()
+
+    result['orders_list'] = [order.to_dict() for order in orders_list]
 
     return result
 
