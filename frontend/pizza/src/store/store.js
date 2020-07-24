@@ -13,7 +13,8 @@ const vuexPersist = new VuexPersistence({
 const state = {
     iAmAuthorized: null, // null or user data
     cart: [], // { id: 123, quantity: 2 }
-    serviceInfo: null
+    serviceInfo: null,
+    currency: 'usd',
 }
 
 const mutations = {
@@ -36,6 +37,9 @@ const mutations = {
     },
     'SET_SERVICE_INFO' (state, info) {
         state.serviceInfo = info
+    },
+    'SET_CURRENCY' (state, currency) {
+        state.currency = currency
     },
     'CLEAR_CART' (state) {
         state.cart = []
@@ -64,7 +68,10 @@ const actions = {
     },
     setServiceInfo: ({ commit }, info)  => {
         commit('SET_SERVICE_INFO', info)
-    }
+    },
+    setCurrency: ({ commit }, currency) => {
+        commit('SET_CURRENCY', currency)
+    },
 }
 
 const getters = {
@@ -80,7 +87,8 @@ const getters = {
     },
     deliveryPrice: (state) => {
         return state.serviceInfo ? state.serviceInfo.delivery_price : null
-    }
+    },
+    currency: state => state.currency,
 }
 
 export const store = new Vuex.Store({

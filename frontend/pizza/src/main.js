@@ -70,6 +70,9 @@ Vue.mixin({
         deliveryPrice() {
             return this.$store.getters.deliveryPrice;
         },
+        globalCurrency() {
+            return this.$store.getters.currency;
+        },
     },
     filters: {
         capitalize: function (value) {
