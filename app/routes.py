@@ -179,12 +179,20 @@ def my_orders():
     for order in orders_list:
         now = datetime.utcnow().timestamp()
         create_timestamp = order.create_timestamp.timestamp()
-        if now - create_timestamp  > ORDER_STATUS_EXPIRATION['DELIVERED_AFTER']:
+        time_passed = now - create_timestamp
+        if time_passed > ORDER_STATUS_EXPIRATION['DELIVERED_AFTER']:
             order.status = OrderStatus.DELIVERED
-        elif now - create_timestamp > ORDER_STATUS_EXPIRATION['READY_AFTER']:
+            status_countdown = 0
+        elif time_passed > ORDER_STATUS_EXPIRATION['READY_AFTER']:
             order.status = OrderStatus.READY
-        elif now - create_timestamp > ORDER_STATUS_EXPIRATION['CONFIRMED_AFTER']:
+            status_countdown = ORDER_STATUS_EXPIRATION['DELIVERED_AFTER'] - time_passed
+        elif time_passed > ORDER_STATUS_EXPIRATION['CONFIRMED_AFTER']:
             order.status = OrderStatus.CONFIRMED
+            status_countdown = ORDER_STATUS_EXPIRATION['READY_AFTER'] - time_passed
+        else:
+            status_countdown = ORDER_STATUS_EXPIRATION['CONFIRMED_AFTER'] - time_passed
+
+        order.status_countdown = status_countdown
 
         db.session.commit()
 

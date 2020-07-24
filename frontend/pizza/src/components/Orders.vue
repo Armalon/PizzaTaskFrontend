@@ -77,7 +77,7 @@
         created() {
             this.checkInterval = setInterval(() => {
                 this.initOrdersList()
-            }, 2000)
+            }, 1000)
         },
         beforeDestroy() {
             if (typeof this.checkInterval !== 'undefined') {

@@ -11,8 +11,9 @@
         <td>
              {{ element.create_timestamp | formatTimestampDateTime }}
         </td>
-        <td>
+        <td class="text-nowrap">
             {{ element.status | capitalize }}
+            <span class="text-success" v-if="element.status_countdown">({{ Math.round(element.status_countdown) }})</span>
         </td>
         <td>
             {{ formatPriceByCurrency(element.total_price) }}
