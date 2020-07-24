@@ -6,6 +6,7 @@ import { store } from './store/store.js';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueRouter from 'vue-router'
+import moment from 'moment';
 
 import Home from "./components/Home";
 import Contacts from "./components/Contacts";
@@ -112,6 +113,18 @@ const router = new VueRouter(
         routes,
     }
 );
+
+function MomentumFormat(formatString, value) {
+    if (value) {
+        const momentTime = moment(value * 1000);
+        return momentTime.format(formatString);
+    }
+}
+
+Vue.filter('formatTimestampDateTime', function(value, currentTimezone) {
+    // September 4 1986 8:30 PM
+    return MomentumFormat('LLL', value, currentTimezone);
+});
 
 new Vue({
     store,

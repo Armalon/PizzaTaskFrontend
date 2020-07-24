@@ -86,6 +86,8 @@ class Order(db.Model):
 
             'status': self.status.value if self.status is not None else '',
             'total_price': self.total_price,
+
+            'create_timestamp': round(self.create_timestamp.timestamp()) if self.create_timestamp is not None else 0
         }
 
 

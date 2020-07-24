@@ -9,7 +9,7 @@
             {{ element.phone }}
         </td>
         <td>
-            [create date]
+             {{ element.create_timestamp | formatTimestampDateTime }}
         </td>
         <td>
             {{ element.status }}
