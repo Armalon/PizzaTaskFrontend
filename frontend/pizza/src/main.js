@@ -9,7 +9,7 @@ import VueRouter from 'vue-router'
 import moment from 'moment';
 
 import Home from "./components/Home";
-import Contacts from "./components/Contacts";
+// import Contacts from "./components/Contacts";
 import MakeOrder from "./components/MakeOrder";
 import Orders from "./components/Orders";
 
