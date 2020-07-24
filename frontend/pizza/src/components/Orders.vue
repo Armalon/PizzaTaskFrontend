@@ -56,7 +56,7 @@
         methods: {
             initOrdersList() {
                 if (this.iAmAuthorized) {
-                    this.axios.get('http://localhost:5000/my_orders',{ withCredentials: true }).then((response) => {
+                    this.axios.get('/my_orders',{ withCredentials: true }).then((response) => {
                         if (response.data
                             && !response.data.error
                             && response.data.orders_list) {

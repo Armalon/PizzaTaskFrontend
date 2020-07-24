@@ -56,7 +56,7 @@
         },
         methods: {
             authorizeMe() {
-                this.axios.get('http://localhost:5000/login', { withCredentials: true }).then((response) => {
+                this.axios.get('/login', { withCredentials: true }).then((response) => {
                     if (response.data
                         && !response.data.error
                         && response.data.user) {
@@ -66,7 +66,7 @@
                 })
             },
             loggingMeOut() {
-                this.axios.get('http://localhost:5000/logout', { withCredentials: true }).then((response) => {
+                this.axios.get('/logout', { withCredentials: true }).then((response) => {
                     if (response.data
                         && !response.data.error) {
 
@@ -106,7 +106,7 @@
             },
         },
         created() {
-            this.axios.get('http://localhost:5000/menu', { withCredentials: true }).then((response) => {
+            this.axios.get('/menu', { withCredentials: true }).then((response) => {
                 if (response.data
                     && !response.data.error
                     && response.data.products) {

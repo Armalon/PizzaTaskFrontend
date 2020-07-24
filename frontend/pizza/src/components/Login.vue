@@ -28,7 +28,7 @@
     export default {
         methods: {
             loggingMeOut() {
-                this.axios.get('http://localhost:5000/logout', { withCredentials: true }).then((response) => {
+                this.axios.get('/logout', { withCredentials: true }).then((response) => {
                     if (response.data
                         && !response.data.error) {
 

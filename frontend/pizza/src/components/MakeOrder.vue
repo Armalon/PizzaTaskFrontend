@@ -107,7 +107,7 @@
                     // ...
                 };
 
-                this.axios.post('http://localhost:5000/make_order', formData,{ withCredentials: true }).then((response) => {
+                this.axios.post('/make_order', formData,{ withCredentials: true }).then((response) => {
                     // console.log('response', response);
 
                     if (response.data

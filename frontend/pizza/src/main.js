@@ -27,7 +27,7 @@ Vue.mixin({
             this.$store.dispatch('setToCart', { id, element, quantity })
         },
         authorizeMe(event, userId) {
-            this.axios.post('http://localhost:5000/login', { user_id: userId }, { withCredentials: true }).then((response) => {
+            this.axios.post('/login', { user_id: userId }, { withCredentials: true }).then((response) => {
                 if (response.data
                     && !response.data.error
                     && response.data.user) {
@@ -96,7 +96,13 @@ Vue.mixin({
     }
 })
 
-Vue.use(VueAxios, axios)
+const instance = axios.create({
+    baseURL: (document.location.hostname != 'localhost'
+        ? 'https://whispering-plateau-15493.herokuapp.com/'
+        : 'http://localhost:5000/')
+});
+
+Vue.use(VueAxios, instance)
 
 Vue.use(VueRouter)
 
