@@ -106,11 +106,13 @@ const routes = [
         path: '/',
         component: Home,
     },
+    /*
     {
         name: 'contacts',
         path: '/contacts',
         component: Contacts,
     },
+     */
     {
         name: 'cart',
         path: '/cart',
