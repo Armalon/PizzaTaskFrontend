@@ -11,6 +11,10 @@
                 You need to be authorized to see your orders list.
             </span>
 
+            <span class="h4" v-if="ordersList && ordersList.length == 0">
+                You have no orders yet, please <router-link :to="{name: 'home'}">check our Menu</router-link> to make one
+            </span>
+
             <div v-if="iAmAuthorized">
                 <div class="text-center" v-if="ordersList == null">
                     <div class="spinner-border text-warning" style="width: 3rem; height: 3rem;" role="status">
@@ -18,7 +22,7 @@
                     </div>
                 </div>
 
-                <table class="table" v-if="ordersList">
+                <table class="table" v-if="ordersList && ordersList.length > 0">
                     <thead>
                     <tr class="">
                         <th scope="col">#</th>
@@ -70,6 +74,7 @@
             }
         },
         created() {
+            this.initOrdersList()
         },
         components: {
             OrderRow
