@@ -1,5 +1,5 @@
 <template>
-    <div class="my-2 p-4">
+    <div class="my-1 px-3 py-1">
         <div v-if="!iAmAuthorized">
             <button
                     class="btn btn-outline-primary my-2"
