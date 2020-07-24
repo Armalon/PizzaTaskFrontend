@@ -7,9 +7,8 @@ from app.models import User, Product, ProductOrder, Order, OrderStatus
 from config import SERVICE_INFO, ORDER_STATUS_EXPIRATION
 
 @app.route('/')
-@app.route('/index')
 def index():
-    return "Hello, World!"
+    return "Welcome to the Pizza World!"
 
 
 @app.route('/login', methods=['GET', 'POST'])
