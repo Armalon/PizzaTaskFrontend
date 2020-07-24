@@ -49,7 +49,8 @@
     export default {
         data() {
             return {
-                ordersList: null
+                ordersList: null,
+                checkInterval: null
             }
         },
         methods: {
@@ -74,7 +75,15 @@
             }
         },
         created() {
-            this.initOrdersList()
+            this.checkInterval = setInterval(() => {
+                this.initOrdersList()
+            }, 2000)
+        },
+        beforeDestroy() {
+            if (typeof this.checkInterval !== 'undefined') {
+                clearInterval(this.checkInterval);
+                this.checkInterval = null;
+            }
         },
         components: {
             OrderRow
