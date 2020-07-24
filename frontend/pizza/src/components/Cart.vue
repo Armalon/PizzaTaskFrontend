@@ -11,12 +11,13 @@
                 <router-link :to="{ name: 'cart' }" v-if="totalCartItems">
                     <ul class="list-unstyled card-text">
                         <li class="text-nowrap">Items ... {{ totalCartItems }}</li>
-                        <li class="text-nowrap">Total price ... ${{ totalCartPrice }}</li>
+                        <li class="text-nowrap">Total price ... {{ formatPriceByCurrency(totalCartPrice) }}</li>
                     </ul>
                 </router-link>
                 <div v-if="!totalCartItems">
                     Nothing here yet
                 </div>
+
                 <currencies></currencies>
             </div>
         </div>

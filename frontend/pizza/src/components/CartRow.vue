@@ -23,7 +23,7 @@
             </button>
         </td>
         <td>
-            ${{ totalPrice }}
+            {{ formatPriceByCurrency(totalPrice) }}
         </td>
     </tr>
 </template>

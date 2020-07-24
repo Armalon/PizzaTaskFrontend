@@ -6,7 +6,7 @@
         </div>
         <div class="card-body">
             <h2 class="card-title pricing-card-title">
-                ${{ element.price }}
+                {{ formatPriceByCurrency(element.price) }}
             </h2>
             <p class="card-text">
                 {{ element.description }}

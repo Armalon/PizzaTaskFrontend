@@ -15,7 +15,7 @@
             {{ element.status | capitalize }}
         </td>
         <td>
-            ${{ element.total_price }}
+            {{ formatPriceByCurrency(element.total_price) }}
         </td>
     </tr>
 </template>

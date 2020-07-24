@@ -36,6 +36,16 @@ Vue.mixin({
                 }
             })
         },
+        formatPriceByCurrency(amount) {
+            if (this.globalCurrency == 'usd') {
+                return '$' + amount;
+            } else {
+                return this.roundToTwo(amount * this.usdToEurMultiplier) + '€';
+            }
+        },
+        roundToTwo(num) {
+            return +(Math.round(num + "e+2")  + "e-2");
+        },
     },
     computed: {
         iAmAuthorized() {
@@ -69,6 +79,9 @@ Vue.mixin({
         },
         deliveryPrice() {
             return this.$store.getters.deliveryPrice;
+        },
+        usdToEurMultiplier() {
+            return this.$store.getters.usdToEurMultiplier;
         },
         globalCurrency() {
             return this.$store.getters.currency;

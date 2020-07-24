@@ -88,6 +88,9 @@ const getters = {
     deliveryPrice: (state) => {
         return state.serviceInfo ? state.serviceInfo.delivery_price : null
     },
+    usdToEurMultiplier: (state) => {
+        return state.serviceInfo ? state.serviceInfo.usd_to_eur_multiplier : 1
+    },
     currency: state => state.currency,
 }
 

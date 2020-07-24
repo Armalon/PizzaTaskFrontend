@@ -35,7 +35,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>${{ deliveryPrice }}</td>
+                        <td>{{ formatPriceByCurrency(deliveryPrice) }}</td>
                     </tr>
 
                     <tr>
@@ -43,7 +43,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>${{ totalCartPrice + (deliveryPrice ? deliveryPrice : 0) }}</td>
+                        <td>{{ formatPriceByCurrency(totalCartPrice + (deliveryPrice ? deliveryPrice : 0)) }}</td>
                     </tr>
                 </tbody>
             </table>
