@@ -21,7 +21,16 @@
 
             <div class="card-columns mb-3 text-center" v-if="menuList != null">
                 <menu-element
-                        v-for="menuElement in filteredMenuList"
+                        v-for="menuElement in filteredMenuPizzaList"
+                        :element="menuElement"
+                        :key="menuElement.id">
+                </menu-element>
+            </div>
+
+            <div class="h3 mb-2">We recommend drinks</div>
+            <div class="card-columns mb-3 text-center" v-if="menuDrinkList != null">
+                <menu-element
+                        v-for="menuElement in menuDrinkList"
                         :element="menuElement"
                         :key="menuElement.id">
                 </menu-element>
@@ -73,8 +82,11 @@
             },
         },
         computed: {
-            filteredMenuList() {
-                return this.menuList.filter(product => {
+            menuPizzaList() {
+                return this.menuList ? this.menuList.filter(product => product.type == 'PIZZA') : []
+            },
+            filteredMenuPizzaList() {
+                return this.menuPizzaList.filter(product => {
                     for (let key in this.filters) {
                         if (this.filters[key] !== 'any') {
                             if (key === 'souse_base' && product.base.toLowerCase() !== this.filters[key]) {
@@ -88,7 +100,10 @@
 
                     return true;
                 })
-            }
+            },
+            menuDrinkList() {
+                return this.menuList ? this.menuList.filter(product => product.type == 'DRINK') : []
+            },
         },
         created() {
             this.axios.get('http://localhost:5000/menu', { withCredentials: true }).then((response) => {

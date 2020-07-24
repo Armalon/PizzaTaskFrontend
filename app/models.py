@@ -158,13 +158,13 @@ class Product(db.Model):
             'type': self.type.value,
             'name': self.name,
             'description': self.description,
-            'size': self.size.value,
+            'size': self.size.value if self.size is not None else '',
             'weight': self.weight,
             'volume': self.volume,
             'price': self.price,
             'picture': self.picture,
-            'base': self.base.value,
-            'crust': self.crust.value,
+            'base': self.base.value if self.base is not None else '',
+            'crust': self.crust.value if self.crust is not None else '',
         }
 
 

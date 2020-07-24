@@ -3,7 +3,7 @@
         <th scope="row">{{ element.id }}</th>
         <td>{{ element.name }}</td>
         <td>
-            <div class="input-group mb-3 col-md-6 col-sm-12">
+            <div class="input-group mb-3 col-md-8 col-sm-12">
                 <div class="input-group-prepend">
                     <button class="btn btn-success" @click="setToCart(element.id, element, -1)">-</button>
                 </div>

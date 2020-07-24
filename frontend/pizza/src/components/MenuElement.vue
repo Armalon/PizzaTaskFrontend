@@ -1,6 +1,6 @@
 <template>
     <div class="card mb-4 shadow-sm">
-        <img :src="'/img/pizza/' + element.picture + '.jpg'" class="card-img-top" alt="...">
+        <img :src="'/img/' + element.type.toLowerCase() + '/' + element.picture + '.jpg'" class="card-img-top" alt="...">
         <div class="card-header">
             <h4 class="my-0 font-weight-normal">{{ element.name }}</h4>
         </div>
@@ -12,11 +12,15 @@
                 {{ element.description }}
             </p>
 
-            <ul class="list-group list-group-flush">
+            <ul class="list-group list-group-flush" v-if="element.type == 'PIZZA'">
                 <li class="list-group-item">Souse base: {{ element.base | capitalize}}</li>
                 <li class="list-group-item">Pizza Crust: {{ element.crust | capitalize}}</li>
                 <li class="list-group-item">Size: {{ element.size | capitalize }}</li>
                 <li class="list-group-item">Weight: {{ element.weight }} gram</li>
+            </ul>
+
+            <ul class="list-group list-group-flush" v-if="element.type == 'DRINK'">
+                <li class="list-group-item">Volume: {{ element.volume | capitalize}} ml</li>
             </ul>
         </div>
         <div class="card-footer">
