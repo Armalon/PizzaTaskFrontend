@@ -8,4 +8,3 @@ frontend/.idea/
 database/database.db
 schema.sql
 node_modules/
-app.db
