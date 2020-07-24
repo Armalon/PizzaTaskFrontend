@@ -50,16 +50,18 @@
         },
         methods: {
             initOrdersList() {
-                this.axios.get('http://localhost:5000/my_orders',{ withCredentials: true }).then((response) => {
-                    console.log('response', response);
+                if (this.iAmAuthorized) {
+                    this.axios.get('http://localhost:5000/my_orders',{ withCredentials: true }).then((response) => {
+                        if (response.data
+                            && !response.data.error
+                            && response.data.orders_list) {
 
-                    if (response.data
-                        && !response.data.error
-                        && response.data.orders_list) {
-
-                        this.ordersList = response.data.orders_list
-                    }
-                })
+                            this.ordersList = response.data.orders_list
+                        }
+                    })
+                } else {
+                    this.ordersList = null
+                }
             }
         },
         watch: {
@@ -68,7 +70,6 @@
             }
         },
         created() {
-            this.initOrdersList()
         },
         components: {
             OrderRow
