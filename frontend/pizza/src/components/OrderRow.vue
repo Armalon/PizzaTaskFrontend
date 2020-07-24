@@ -12,7 +12,7 @@
              {{ element.create_timestamp | formatTimestampDateTime }}
         </td>
         <td>
-            {{ element.status }}
+            {{ element.status | capitalize }}
         </td>
         <td>
             ${{ element.total_price }}

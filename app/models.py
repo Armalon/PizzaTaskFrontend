@@ -46,7 +46,7 @@ class User(db.Model):
 class OrderStatus(enum.Enum):
     ORDERED = 'ORDERED'
     CONFIRMED = 'CONFIRMED'
-    READY = 'READY'
+    READY = 'COOKED'
     DELIVERED = 'DELIVERED'
 
 
