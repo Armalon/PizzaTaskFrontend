@@ -44,7 +44,7 @@
 </template>
 
 <script>
-    import OrderRow from "./OrderRow";
+    import OrderRow from "../OrderRow";
 
     export default {
         data() {

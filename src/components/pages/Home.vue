@@ -41,8 +41,8 @@
 </template>
 
 <script>
-    import SearchFilters from "./SearchFilters";
-    import MenuElement from "./MenuElement";
+    import SearchFilters from "../SearchFilters";
+    import MenuElement from "../MenuElement";
 
     export default {
         data() {

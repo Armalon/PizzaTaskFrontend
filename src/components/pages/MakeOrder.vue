@@ -80,7 +80,7 @@
 
 
 <script>
-    import CartRow from "./CartRow";
+    import CartRow from "../CartRow";
 
     export default {
         data() {

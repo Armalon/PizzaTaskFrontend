@@ -8,10 +8,10 @@ import VueAxios from 'vue-axios'
 import VueRouter from 'vue-router'
 import moment from 'moment';
 
-import Home from "./components/Home";
+import Home from "./components/pages/Home";
 // import Contacts from "./components/Contacts";
-import MakeOrder from "./components/MakeOrder";
-import Orders from "./components/Orders";
+import MakeOrder from "./components/pages/MakeOrder";
+import Orders from "./components/pages/Orders";
 
 Vue.config.productionTip = false
 
