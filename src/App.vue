@@ -15,10 +15,10 @@
 </template>
 
 <script>
-    import Logo from './components/Logo.vue'
-    import Navigation from "./components/Navigation"
-    import Cart from "./components/Cart";
-    import Login from "./components/Login";
+    import Logo from './components/base/Logo.vue'
+    import Navigation from "./components/base/Navigation"
+    import Cart from "./components/base/Cart";
+    import Login from "./components/base/Login";
 
     export default {
         name: 'App',
