@@ -1,40 +1,59 @@
 <template>
     <div class="my-1 px-3 py-1">
-        <div v-if="!iAmAuthorized">
-            <button
-                    class="btn btn-outline-primary my-2"
-                    @click="authorizeMe"
-                    title="You will get random user credential">Sign in</button>
+        <button
+                v-if="!iAmAuthorized"
+                class="btn btn-outline-primary my-2"
+                @click="logIn"
+                title="You will get random user credential">Sign in</button>
 
-            <div class="alert alert-primary" role="alert">
-                You will get random user credential
-            </div>
+        <button
+                v-if="iAmAuthorized"
+                class="btn btn-outline-primary my-2"
+                @click="loggingMeOut"
+                :disabled="requestIsInProcess"
+                title="">Sign out</button>
+
+        <div v-if="!iAmAuthorized && !requestIsInProcess" class="alert alert-primary" role="alert">
+            You will get random user credential
         </div>
 
-        <div v-if="iAmAuthorized">
-            <button
-                    class="btn btn-outline-primary my-2"
-                    @click="loggingMeOut"
-                    title="">Sign out</button>
-
-            <div class="alert alert-success" role="alert">
-                Hello, <b><i>{{ userName }}</i></b>
-            </div>
+        <div v-if="iAmAuthorized && !requestIsInProcess" class="alert alert-success" role="alert">
+            Hello, <b><i>{{ userName }}</i></b>
         </div>
+
+        <loader v-if="requestIsInProcess"></loader>
     </div>
 </template>
 
 <script>
     export default {
+        data() {
+            return {
+                requestIsInProcess: false
+            }
+        },
         methods: {
-            loggingMeOut() {
-                this.axios.get('/logout', { withCredentials: true }).then((response) => {
-                    if (response.data
-                        && !response.data.error) {
+            logIn() {
+                this.requestIsInProcess = true;
 
-                        this.$store.dispatch('setIAmAuthorized', null);
-                    }
-                })
+                this.authorizeMe()
+                    .finally(() => {
+                        this.requestIsInProcess = false;
+                    });
+            },
+            loggingMeOut() {
+                this.requestIsInProcess = true;
+
+                this.axios.get('/logout', { withCredentials: true }).then((response) => {
+                        if (response.data
+                            && !response.data.error) {
+
+                            this.$store.dispatch('setIAmAuthorized', null);
+                        }
+                    })
+                    .finally(() => {
+                        this.requestIsInProcess = false;
+                    });
             },
         },
     }
