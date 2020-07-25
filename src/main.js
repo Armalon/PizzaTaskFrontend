@@ -40,7 +40,7 @@ Vue.mixin({
             if (this.globalCurrency == 'usd') {
                 return '$' + amount;
             } else {
-                return this.roundToTwo(amount * this.usdToEurMultiplier) + '€';
+                return this.roundToTwo(amount / this.usdToEurMultiplier) + '€';
             }
         },
         roundToTwo(num) {
