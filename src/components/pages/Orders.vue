@@ -16,11 +16,7 @@
             </span>
 
             <div v-if="iAmAuthorized">
-                <div class="text-center" v-if="ordersList == null">
-                    <div class="spinner-border text-warning" style="width: 3rem; height: 3rem;" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </div>
+                <loader v-if="ordersList == null"></loader>
 
                 <table class="table" v-if="ordersList && ordersList.length > 0">
                     <thead>

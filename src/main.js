@@ -10,6 +10,7 @@ import moment from 'moment';
 
 import Home from "./components/pages/Home";
 // import Contacts from "./components/Contacts";
+import Loader from "./components/Loader";
 import MakeOrder from "./components/pages/MakeOrder";
 import Orders from "./components/pages/Orders";
 
@@ -93,6 +94,9 @@ Vue.mixin({
             value = value.toString().toLowerCase()
             return value.charAt(0).toUpperCase() + value.slice(1)
         }
+    },
+    components: {
+        Loader
     }
 })
 
