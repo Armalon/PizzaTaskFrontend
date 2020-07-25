@@ -25,7 +25,7 @@
 </template>
 
 <script>
-    import Currencies from "../Currencies";
+    import Currencies from "./Currencies";
 
     export default {
         computed: {
