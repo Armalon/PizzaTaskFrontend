@@ -1,4 +1,12 @@
-# pizza
+# ThePizzaTask Frontend
+
+An implementation of a PizzaTask frontend part.
+
+This project is ready for deployment on the Heroku service (see _static.json_).
+
+## Technologies used
+
+Vue, Bootstrap, Axios
 
 ## Project setup
 ```
@@ -20,5 +28,4 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
