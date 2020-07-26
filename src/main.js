@@ -107,7 +107,6 @@ const instance = axios.create({
 });
 
 Vue.use(VueAxios, instance)
-
 Vue.use(VueRouter)
 
 const routes = [
