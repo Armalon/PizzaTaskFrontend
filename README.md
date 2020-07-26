@@ -6,7 +6,7 @@ This project is ready for deployment on the Heroku service (see _static.json_).
 
 ## Technologies used
 
-Vue, Bootstrap, Axios
+Vue, Vuex, Bootstrap, Axios
 
 ## Project setup
 ```
