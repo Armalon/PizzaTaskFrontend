@@ -102,7 +102,7 @@ Vue.mixin({
 
 const instance = axios.create({
     baseURL: (document.location.hostname != 'localhost'
-        ? 'https://whispering-plateau-15493.herokuapp.com/'
+        ? 'https://gentle-ravine-24702.herokuapp.com/'
         : 'http://localhost:5000/')
 });
 
